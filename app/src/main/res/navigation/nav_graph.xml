@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentLogin">
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.huanglf.test16.ui.css.FragmentLogin"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/toRegisterFromLogin"
+            app:destination="@id/fragmentRegister" />
+        <action
+            android:id="@+id/toMainFromLogin"
+            app:destination="@id/fragmentMain" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="com.huanglf.test16.ui.css.FragmentRegister"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/toLoginFromRegister"
+            app:destination="@id/fragmentLogin" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMain"
+        android:name="com.huanglf.test16.ui.jy.FragmentMain"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/toDetailFromMain"
+            app:destination="@id/fragmentDetailNote" />
+        <action
+            android:id="@+id/toPersonFromMain"
+            app:destination="@id/fragmentPersonInfo" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDetailNote"
+        android:name="com.huanglf.test16.ui.ty.FragmentDetailNote"
+        android:label="fragment_detail_note"
+        tools:layout="@layout/fragment_detail_note" >
+        <action
+            android:id="@+id/toMainFromDetail"
+            app:destination="@id/fragmentMain" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentPersonInfo"
+        android:name="com.huanglf.test16.ui.css.FragmentPersonInfo"
+        android:label="fragment_person_info"
+        tools:layout="@layout/fragment_person_info" >
+        <action
+            android:id="@+id/toMainFromPerson"
+            app:destination="@id/fragmentMain" />
+    </fragment>
+</navigation>
