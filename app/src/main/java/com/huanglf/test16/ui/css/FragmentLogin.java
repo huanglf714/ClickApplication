@@ -22,6 +22,8 @@ import com.huanglf.test16.R;
 import com.huanglf.test16.common.MessageEnum;
 import com.huanglf.test16.repository.Message;
 
+import cn.bmob.v3.BmobUser;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +77,9 @@ public class FragmentLogin extends Fragment {
         loginViewModel.getIsLogin().observe(this, new Observer<BmobUser>() {
             @Override
             public void onChanged(BmobUser user) {
+                if(user==null){
+                    Log.e("myLog","the user is null.");
+                }
                 Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_SHORT);
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }
