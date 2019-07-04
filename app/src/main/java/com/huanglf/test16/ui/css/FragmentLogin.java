@@ -15,14 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.Message;
-
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.LogInListener;
 
 
 /**
@@ -33,7 +30,7 @@ public class FragmentLogin extends Fragment{
     EditText account = null;
     EditText password = null;
     Button btnLogin = null;
-    Button btnRegister = null;
+    TextView registerView = null;
 
     public FragmentLogin() {
         // Required empty public constructor
@@ -52,8 +49,8 @@ public class FragmentLogin extends Fragment{
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         account = view.findViewById(R.id.account);
         password = view.findViewById(R.id.pwd);
-        btnLogin = view.findViewById(R.id.signUp);
-        btnRegister = view.findViewById(R.id.signIn);
+        btnLogin = view.findViewById(R.id.login);
+        registerView = view.findViewById(R.id.register);
         //手机账户+密码登录
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +60,12 @@ public class FragmentLogin extends Fragment{
             }
         });
 
-        //手机账户+验证码登录
         //第三方账户登录
         //跳转到注册页面
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        registerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("myLog","-------------------");
                 Navigation.findNavController(v).navigate(R.id.toRegisterFromLogin);
             }
         });

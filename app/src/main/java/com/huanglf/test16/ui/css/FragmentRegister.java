@@ -51,7 +51,7 @@ public class FragmentRegister extends Fragment {
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
         account = view.findViewById(R.id.account);
         password = view.findViewById(R.id.pwd);
-        btnSendCode = view.findViewById(R.id.sendCode);
+        btnSendCode = view.findViewById(R.id.sendConfirmCode);
         //点击发送验证码
         btnSendCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,7 @@ public class FragmentRegister extends Fragment {
             }
         });
         confirmCode = view.findViewById(R.id.confirmCode);
-        btnRegister = view.findViewById(R.id.register);
+        btnRegister = view.findViewById(R.id.login);
         //点击注册
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
