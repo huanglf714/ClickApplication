@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EditTextStyle">
+        <!--表示控件默认的颜色-->
+        <item name="android:colorControlNormal">#ccc</item>
+        <!--表示控件被激活时的颜色-->
+        <item name="android:colorControlActivated">#F04E27</item>
+    </style>
+
+    <style name="checkboxStyle">
+        <!--波纹的颜色-->
+        <item name="android:colorControlHighlight">@color/colorPrimary</item>
+        <!--选中的颜色-->
+        <item name="colorAccent">@color/colorMain</item>
+    </style>
+</resources>

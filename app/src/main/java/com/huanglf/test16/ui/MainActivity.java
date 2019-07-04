@@ -1,15 +1,18 @@
 package com.huanglf.test16.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
+import com.huanglf.test16.repository.Message;
 import com.huanglf.test16.util.MessageUtil;
-
 public class MainActivity extends AppCompatActivity {
+    private MutableLiveData<Message> isLogin = new MutableLiveData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
