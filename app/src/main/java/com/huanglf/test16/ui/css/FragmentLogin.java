@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
+import com.huanglf.test16.common.MessageEnum;
 import com.huanglf.test16.repository.Message;
 
 import cn.bmob.v3.BmobUser;
@@ -28,7 +29,7 @@ import cn.bmob.v3.listener.LogInListener;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentLogin extends Fragment{
+public class FragmentLogin extends Fragment {
     private LoginViewModel loginViewModel;
     EditText account = null;
     EditText password = null;
@@ -59,7 +60,7 @@ public class FragmentLogin extends Fragment{
             @Override
             public void onClick(final View v) {
                 loginViewModel.loginWithPassword(
-                        account.getText().toString(),password.getText().toString());
+                        account.getText().toString(), password.getText().toString());
             }
         });
 
@@ -73,19 +74,14 @@ public class FragmentLogin extends Fragment{
             }
         });
 
-       //数据监听
-        loginViewModel.getIsLogin().observe(this, new Observer<Message>() {
+        //数据监听
+        loginViewModel.getIsLogin().observe(this, new Observer<BmobUser>() {
             @Override
-            public void onChanged(Message message) {
-                if (message.getResultCode()==000){
-                    Toast.makeText(getContext(),"登录成功",Toast.LENGTH_SHORT);
-                    Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
-                }else {
-                    Toast.makeText(getContext(), "用户名或密码错误",Toast.LENGTH_SHORT).show();
-                }
+            public void onChanged(BmobUser user) {
+                Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_SHORT);
+                Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }
         });
-
 
 
     }
