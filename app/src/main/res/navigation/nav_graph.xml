@@ -14,7 +14,8 @@
             app:destination="@id/fragmentRegister" />
         <action
             android:id="@+id/toMainFromLogin"
-            app:destination="@id/fragmentMain" />
+            app:destination="@id/fragmentMain"
+            app:popUpTo="@+id/fragmentLogin" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRegister"
@@ -23,7 +24,8 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/toLoginFromRegister"
-            app:destination="@id/fragmentLogin" />
+            app:destination="@id/fragmentLogin"
+            app:popUpTo="@+id/fragmentRegister" />
     </fragment>
     <fragment
         android:id="@+id/fragmentMain"
