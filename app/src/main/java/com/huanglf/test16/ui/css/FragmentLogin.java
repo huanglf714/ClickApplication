@@ -22,6 +22,8 @@ import com.huanglf.test16.R;
 import com.huanglf.test16.common.MessageEnum;
 import com.huanglf.test16.repository.Message;
 
+import cn.bmob.v3.BmobUser;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +34,7 @@ public class FragmentLogin extends Fragment {
     EditText password = null;
     Button btnLogin = null;
     TextView registerView = null;
+    TextView forgetPwdView = null;
 
     public FragmentLogin() {
         // Required empty public constructor
@@ -52,6 +55,7 @@ public class FragmentLogin extends Fragment {
         password = view.findViewById(R.id.pwd);
         btnLogin = view.findViewById(R.id.login);
         registerView = view.findViewById(R.id.register);
+        forgetPwdView = view.findViewById(R.id.forgetPwd);
         //手机账户+密码登录
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,15 +70,26 @@ public class FragmentLogin extends Fragment {
         registerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("myLog","-------------------");
                 Navigation.findNavController(v).navigate(R.id.toRegisterFromLogin);
             }
         });
+
+        //忘记密码
+        forgetPwdView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
         //数据监听
         loginViewModel.getIsLogin().observe(this, new Observer<BmobUser>() {
             @Override
             public void onChanged(BmobUser user) {
+                if(user==null){
+                    Log.e("myLog","the user is null.");
+                }
                 Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_SHORT);
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }

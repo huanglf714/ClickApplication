@@ -3,11 +3,19 @@ package com.huanglf.test16.repository.impl;
 
 import android.util.Log;
 
-import com.huanglf.test16.repository.IUserRepository;
+import androidx.lifecycle.MutableLiveData;
 
+import com.huanglf.test16.repository.IUserRepository;
+import com.huanglf.test16.repository.Message;
+import com.huanglf.test16.util.MessageUtil;
+
+import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
+import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Date: 2019/7/4
@@ -16,11 +24,9 @@ import cn.bmob.v3.listener.LogInListener;
  */
 public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUserRepository {
     private static UserRepositoryImpl userRepositoryImpl;
-    /**
-     * 1.装exception
-     * 2.装数据bean
-     */
-    private final Object[] values = new Object[2];
+    private final MutableLiveData<BmobUser> userLiveData = new MutableLiveData<>();
+    private final MutableLiveData<BmobUser> registerUserData = new MutableLiveData<>();
+
 
     private UserRepositoryImpl() {
     }
@@ -33,41 +39,95 @@ public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUser
     }
 
     @Override
-    public BmobUser loginWithPassword(String account, String password) throws BmobException {
+    public void loginWithPassword(String account, String password) {
         BmobUser.loginByAccount(account, password, this);
-        judgeException();
-        return (BmobUser)values[1];
     }
 
 
     @Override
-    public BmobUser loginWithWeChat() throws BmobException {
-        judgeException();
-        return (BmobUser)values[1];
+    public void loginWithWeChat() {
+    }
+
+    @Override
+    public void sendConfirmCode(String account) {
+        BmobSMS.requestSMSCode(account,"template1",
+                new QueryListener<Integer>() {
+                    @Override
+                    public void done(Integer smsId, BmobException ex) {
+                        if(ex==null){//验证码发送成功
+                        }else {
+                            MessageUtil.error("验证码发送失败");
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void register(final String account,final String confirmCode,
+                         final String password,final String repeatPwd) {
+        if(verifyPwd(password,repeatPwd)&&verifyConfirmCode(account,confirmCode)){
+            final BmobUser newUser = new BmobUser();
+            newUser.setUsername(account);
+            newUser.setMobilePhoneNumber(account);
+            newUser.setPassword(password);
+            newUser.signUp(new SaveListener<BmobUser>() {
+                @Override
+                public void done(BmobUser bmobUser, BmobException e) {
+                    if(e!=null){
+                        MessageUtil.error("该手机号已被注册");
+                    }else{
+                        registerUserData.postValue(newUser);
+                    }
+                }});
+        }
+    }
+
+    private boolean verifyPwd(String password,String repeatPwd){
+        if(password==null||password.trim()==""){
+            MessageUtil.error("密码无效");
+            return false;
+        }else {
+            if(!password.equals(repeatPwd)){
+                MessageUtil.error("两次输入的密码不一致");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean verifyConfirmCode(final String account,final String confirmCode){
+        final Boolean[] result = {true};
+        BmobSMS.verifySmsCode(account, confirmCode, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                //短信验证码已验证成功
+                if(e==null){
+                    result[0] = true;
+                }else{
+                    result[0] = false;
+                    MessageUtil.error("验证码输入错误");
+                }
+            }
+        });
+        return result[0];
     }
 
     @Override
     public void done(BmobUser bmobUser, BmobException e) {
         if (bmobUser == null && e != null) {
-            Log.e("UserRepositoryImpl", "done: ", e);
-            values[0] = e;
-        }else{
-            Log.d("user", "done: --------------------------------------------");
-            values[1] = bmobUser;
+            MessageUtil.error(e.getMessage());
+        } else {
+            userLiveData.postValue(bmobUser);
         }
 
     }
 
-    /**
-     * 判断当前是否存在异常
-     *
-     * @throws BmobException
-     */
-    private void judgeException() throws BmobException {
-        if (values[0] != null) {
-            BmobException exception = (BmobException) values[0];
-            values[0] = null;
-            throw exception;
-        }
+    @Override
+    public MutableLiveData<BmobUser> getUserLiveData() {
+        return this.userLiveData;
+    }
+
+    public MutableLiveData<BmobUser> getRegisterUserData() {
+        return registerUserData;
     }
 }

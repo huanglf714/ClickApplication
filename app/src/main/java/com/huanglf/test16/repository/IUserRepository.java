@@ -1,5 +1,7 @@
 package com.huanglf.test16.repository;
 
+import androidx.lifecycle.MutableLiveData;
+
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 
@@ -16,11 +18,25 @@ public interface IUserRepository {
      * @param password
      * @return
      */
-    BmobUser loginWithPassword(String account, String password) throws Exception;
+    void loginWithPassword(String account, String password);
 
 
     /**
      * 用户通过微信登录
      */
-    BmobUser loginWithWeChat() throws BmobException;
+    void loginWithWeChat();
+
+    /**
+     * 发送注册验证码
+     */
+    void sendConfirmCode(String account);
+
+    /**
+     * 用户注册
+     */
+    void register(String account,String confirmCode,String password,String repeatPwd);
+
+    MutableLiveData<BmobUser> getUserLiveData();
+
+    MutableLiveData<BmobUser> getRegisterUserData();
 }

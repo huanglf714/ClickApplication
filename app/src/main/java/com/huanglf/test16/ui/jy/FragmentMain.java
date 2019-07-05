@@ -63,16 +63,6 @@ public class FragmentMain extends Fragment {
             }
         });
 
-        final ClipboardManager clipboard = (ClipboardManager)getContext().getSystemService(getContext().CLIPBOARD_SERVICE);
-        clipboard.addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
-            @Override
-            public void onPrimaryClipChanged() {
-                ClipData data = clipboard.getPrimaryClip();
-                ClipData.Item item = data.getItemAt(0);
-                String content = item.getText().toString();
-                textView.setText(content);
-                Log.e("myLog",content+"--------------------");
-            }
-        });
+
     }
 }
