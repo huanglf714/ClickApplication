@@ -22,6 +22,8 @@ import com.huanglf.test16.R;
 import com.huanglf.test16.common.MessageEnum;
 import com.huanglf.test16.repository.Message;
 
+import cn.bmob.v3.BmobUser;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +68,7 @@ public class FragmentLogin extends Fragment {
         registerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("myLog","-------------------");
+                Log.e("myLog", "-------------------");
                 Navigation.findNavController(v).navigate(R.id.toRegisterFromLogin);
             }
         });
@@ -79,8 +81,6 @@ public class FragmentLogin extends Fragment {
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }
         });
-
-
     }
 
 

@@ -3,7 +3,10 @@ package com.huanglf.test16.repository.impl;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.huanglf.test16.repository.IUserRepository;
+import com.huanglf.test16.util.MessageUtil;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -16,11 +19,7 @@ import cn.bmob.v3.listener.LogInListener;
  */
 public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUserRepository {
     private static UserRepositoryImpl userRepositoryImpl;
-    /**
-     * 1.装exception
-     * 2.装数据bean
-     */
-    private final Object[] values = new Object[2];
+    private final MutableLiveData<BmobUser> userLiveData = new MutableLiveData<>();
 
     private UserRepositoryImpl() {
     }
@@ -33,41 +32,29 @@ public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUser
     }
 
     @Override
-    public BmobUser loginWithPassword(String account, String password) throws BmobException {
+    public void loginWithPassword(String account, String password) {
         BmobUser.loginByAccount(account, password, this);
-        judgeException();
-        return (BmobUser)values[1];
     }
 
 
     @Override
-    public BmobUser loginWithWeChat() throws BmobException {
-        judgeException();
-        return (BmobUser)values[1];
+    public void loginWithWeChat() {
     }
 
     @Override
     public void done(BmobUser bmobUser, BmobException e) {
         if (bmobUser == null && e != null) {
             Log.e("UserRepositoryImpl", "done: ", e);
-            values[0] = e;
-        }else{
+            MessageUtil.error(e.getMessage());
+        } else {
             Log.d("user", "done: --------------------------------------------");
-            values[1] = bmobUser;
+            userLiveData.postValue(bmobUser);
         }
 
     }
 
-    /**
-     * 判断当前是否存在异常
-     *
-     * @throws BmobException
-     */
-    private void judgeException() throws BmobException {
-        if (values[0] != null) {
-            BmobException exception = (BmobException) values[0];
-            values[0] = null;
-            throw exception;
-        }
+    @Override
+    public MutableLiveData<BmobUser> getUserLiveData() {
+        return userLiveData;
     }
 }

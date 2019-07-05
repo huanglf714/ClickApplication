@@ -1,36 +1,30 @@
 package com.huanglf.test16.ui.jy;
 
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.huanglf.test16.R;
-
-import static android.content.Context.CLIPBOARD_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
+import com.qmuiteam.qmui.widget.QMUITabSegment;
+import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentMain extends Fragment {
-    Button btnAddNote = null;
-    Button btnPersonInfo = null;
-    TextView textView = null;
+    private QMUITabSegment mMainTabSegment;
+    private QMUITabSegment.Tab mMainTab, mFavorTab;
+    private QMUIViewPager mViewPager;
 
     public FragmentMain() {
         // Required empty public constructor
@@ -47,32 +41,21 @@ public class FragmentMain extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnAddNote = view.findViewById(R.id.addNote);
-        btnPersonInfo = view.findViewById(R.id.personInfo);
-        textView = view.findViewById(R.id.note1);
-        btnAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.toDetailFromMain);
-            }
-        });
-        btnPersonInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.toPersonFromMain);
-            }
-        });
+        mMainTabSegment = view.findViewById(R.id.mainTabSegment);
+        initTab();
+    }
 
-        final ClipboardManager clipboard = (ClipboardManager)getContext().getSystemService(getContext().CLIPBOARD_SERVICE);
-        clipboard.addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
-            @Override
-            public void onPrimaryClipChanged() {
-                ClipData data = clipboard.getPrimaryClip();
-                ClipData.Item item = data.getItemAt(0);
-                String content = item.getText().toString();
-                textView.setText(content);
-                Log.e("myLog",content+"--------------------");
-            }
-        });
+    private void initTab() {
+        mMainTab = new QMUITabSegment.Tab(
+                ContextCompat.getDrawable(getContext(), R.drawable.list),
+                ContextCompat.getDrawable(getContext(), R.drawable.list_selected),
+                "我的列表", true);
+        mFavorTab = new QMUITabSegment.Tab(
+                ContextCompat.getDrawable(getContext(), R.drawable.favor),
+                ContextCompat.getDrawable(getContext(), R.drawable.favor_selected),
+                "我的收藏", true);
+        mMainTabSegment.addTab(mMainTab);
+        mMainTabSegment.addTab(mFavorTab);
+        mMainTabSegment.setupWithViewPager(mViewPager, false);
     }
 }

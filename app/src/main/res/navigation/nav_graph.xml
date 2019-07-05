@@ -8,7 +8,7 @@
         android:id="@+id/fragmentLogin"
         android:name="com.huanglf.test16.ui.css.FragmentLogin"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login1" >
+        tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/toRegisterFromLogin"
             app:destination="@id/fragmentRegister" />
