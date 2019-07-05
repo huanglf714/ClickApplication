@@ -1,20 +1,9 @@
 package com.huanglf.test16.ui.css;
 
-import android.util.Log;
-
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.huanglf.test16.repository.IUserRepository;
-import com.huanglf.test16.repository.Message;
 import com.huanglf.test16.repository.impl.UserRepositoryImpl;
-
-import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Date: 2019/7/3
@@ -30,8 +19,15 @@ public class RegisterViewModel extends ViewModel {
     }
 
     //注册用户
-    public void register(final String account,final String password,final String repeatPwd,String confirmCode){
+    public void register(final String account,final String password,
+                         final String repeatPwd,String confirmCode){
         userRepository.register(account,confirmCode,password,repeatPwd);
+    }
+
+    //更改密码
+    public void alterPwd(final String account,final String password,
+                         final String repeatPwd,String confirmCode){
+        userRepository.alterPwd(account,confirmCode,password,repeatPwd);
     }
 }
 

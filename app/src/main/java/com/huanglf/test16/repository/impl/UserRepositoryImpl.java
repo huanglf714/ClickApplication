@@ -1,12 +1,9 @@
 package com.huanglf.test16.repository.impl;
 
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.huanglf.test16.repository.IUserRepository;
-import com.huanglf.test16.repository.Message;
 import com.huanglf.test16.util.MessageUtil;
 
 import cn.bmob.v3.BmobSMS;
@@ -82,6 +79,27 @@ public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUser
         }
     }
 
+    @Override
+    public void alterPwd(final String account, String confirmCode,
+                         final String password, String repeatPwd) {
+        if(verifyPwd(password,repeatPwd)){
+            BmobUser.resetPasswordBySMSCode(confirmCode, password, new UpdateListener() {
+                @Override
+                public void done(BmobException e) {
+                    if (e == null) {
+                        BmobUser user = new BmobUser();
+                        user.setUsername(account);
+                        user.setMobilePhoneNumber(account);
+                        user.setPassword(password);
+                        registerUserData.postValue(user);
+                    } else {
+                        MessageUtil.error("验证码输入错误");
+                    }
+                }
+            });
+        }
+    }
+
     private boolean verifyPwd(String password,String repeatPwd){
         if(password==null||password.trim()==""){
             MessageUtil.error("密码无效");
@@ -115,7 +133,7 @@ public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUser
     @Override
     public void done(BmobUser bmobUser, BmobException e) {
         if (bmobUser == null && e != null) {
-            MessageUtil.error(e.getMessage());
+            MessageUtil.error("用户名或密码错误");
         } else {
             userLiveData.postValue(bmobUser);
         }
