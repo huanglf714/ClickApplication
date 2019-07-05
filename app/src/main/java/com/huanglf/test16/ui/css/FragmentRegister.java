@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,8 @@ public class FragmentRegister extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = getArguments();
+        final String value = bundle.getString("key");
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
         account = view.findViewById(R.id.account);
         password = view.findViewById(R.id.pwd);
@@ -65,13 +68,23 @@ public class FragmentRegister extends Fragment {
         });
         confirmCode = view.findViewById(R.id.confirmCode);
         btnRegister = view.findViewById(R.id.register);
+        btnRegister.setText(value);
         //点击注册
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                registerViewModel.register(account.getText().toString(),
-                        password.getText().toString(),repeatPassword.getText().toString(),
-                        confirmCode.getText().toString());
+                if("注册".equals(value)){
+                    Log.e("myLog","注册");
+                    registerViewModel.register(account.getText().toString(),
+                            password.getText().toString(),repeatPassword.getText().toString(),
+                            confirmCode.getText().toString());
+                }else {
+                    Log.e("myLog","修改密码");
+                    registerViewModel.alterPwd(account.getText().toString(),
+                            password.getText().toString(),repeatPassword.getText().toString(),
+                            confirmCode.getText().toString());
+                }
+
             }
         });
 
@@ -79,7 +92,7 @@ public class FragmentRegister extends Fragment {
         userRepository.getRegisterUserData().observe(this, new Observer<BmobUser>() {
             @Override
             public void onChanged(BmobUser user) {
-                Toast.makeText(getContext(),"注册成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),value+"成功",Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getView()).navigate(R.id.toLoginFromRegister);
             }
         });
