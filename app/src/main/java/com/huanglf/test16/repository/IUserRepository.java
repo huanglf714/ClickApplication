@@ -26,5 +26,17 @@ public interface IUserRepository {
      */
     void loginWithWeChat();
 
+    /**
+     * 发送注册验证码
+     */
+    void sendConfirmCode(String account);
+
+    /**
+     * 用户注册
+     */
+    void register(String account,String confirmCode,String password,String repeatPwd);
+
     MutableLiveData<BmobUser> getUserLiveData();
+
+    MutableLiveData<BmobUser> getRegisterUserData();
 }
