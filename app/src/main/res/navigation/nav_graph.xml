@@ -3,7 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentLogin">
+    app:startDestination="@id/fragmentLaunch">
+    <fragment
+        android:id="@+id/fragmentLaunch"
+        android:name="com.huanglf.test16.ui.LaunchFragment"
+        android:label="fragment_launch"
+        tools:layout="@layout/fragment_launch">
+        <action
+            android:id="@+id/actionLaunchLogin"
+            app:destination="@id/fragmentLogin"
+            app:popUpTo="@+id/fragmentLaunch"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/actionLaunchMain"
+            app:destination="@id/fragmentMain"
+            app:popUpTo="@+id/fragmentLaunch"
+            app:popUpToInclusive="true" />
+    </fragment>
+
     <fragment
         android:id="@+id/fragmentLogin"
         android:name="com.huanglf.test16.ui.css.FragmentLogin"
