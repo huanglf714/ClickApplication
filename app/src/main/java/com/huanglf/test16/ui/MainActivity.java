@@ -9,12 +9,15 @@ import android.widget.Toast;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.util.MessageUtil;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        QMUIStatusBarHelper.translucent(this);
 
         //全局监听异常
         MessageUtil.getExceptionLiveData().observe(this, new Observer<String>() {
