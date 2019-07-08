@@ -3,7 +3,6 @@ package com.huanglf.test16.repository;
 import androidx.lifecycle.MutableLiveData;
 
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
 
 /**
  * Date: 2019/7/4

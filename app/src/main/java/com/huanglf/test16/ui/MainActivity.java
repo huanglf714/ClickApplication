@@ -14,6 +14,7 @@ import com.huanglf.test16.ui.css.FragmentLogin;
 import com.huanglf.test16.ui.css.FragmentRegister;
 import com.huanglf.test16.ui.jy.FragmentMain;
 import com.huanglf.test16.util.MessageUtil;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import static com.huanglf.test16.ClickApplication.sharedPreferences;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        QMUIStatusBarHelper.translucent(this);
 
 
         //全局监听异常

@@ -122,8 +122,6 @@ public class FragmentLogin extends Fragment {
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }
         });
-
-
     }
 
 

@@ -1,36 +1,32 @@
 package com.huanglf.test16.ui.jy;
 
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huanglf.test16.R;
-
-import static android.content.Context.CLIPBOARD_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
+import com.qmuiteam.qmui.widget.QMUITabSegment;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FragmentMain extends Fragment {
-    Button btnAddNote = null;
-    Button btnPersonInfo = null;
-    TextView textView = null;
+    private QMUITabSegment mMainTabSegment;
+    private QMUITabSegment.Tab mMainTab, mFavorTab;
+    private QMUIViewPager mViewPager;
+    private QMUITopBarLayout mTopBar;
 
     public FragmentMain() {
         // Required empty public constructor
@@ -41,28 +37,55 @@ public class FragmentMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        mViewPager = view.findViewById(R.id.contentViewPager);
+        mMainTabSegment = view.findViewById(R.id.mainTabSegment);
+        mMainTabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(int index) {
+                Toast.makeText(getContext(), "select index " + index, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTabUnselected(int index) {
+                Toast.makeText(getContext(), "unSelect index " + index, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTabReselected(int index) {
+                Toast.makeText(getContext(), "reselect index " + index, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDoubleTap(int index) {
+                Toast.makeText(getContext(), "doubleSelect index " + index, Toast.LENGTH_SHORT).show();
+            }
+        });
+        initTab();
+        initViewPager();
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnAddNote = view.findViewById(R.id.addNote);
-        btnPersonInfo = view.findViewById(R.id.personInfo);
-        textView = view.findViewById(R.id.note1);
-        btnAddNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.toDetailFromMain);
-            }
-        });
-        btnPersonInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.toPersonFromMain);
-            }
-        });
+    }
 
+    private void initTab() {
+        mMainTab = new QMUITabSegment.Tab(
+                ContextCompat.getDrawable(getContext(), R.drawable.list),
+                ContextCompat.getDrawable(getContext(), R.drawable.list_selected),
+                "我的列表", true);
+        mFavorTab = new QMUITabSegment.Tab(
+                ContextCompat.getDrawable(getContext(), R.drawable.favor),
+                ContextCompat.getDrawable(getContext(), R.drawable.favor_selected),
+                "我的收藏", true);
+        mMainTabSegment.addTab(mMainTab);
+        mMainTabSegment.addTab(mFavorTab);
+    }
 
+    private void initViewPager() {
+        mViewPager.setAdapter(new MainTabAdapter(getLayoutInflater()));
+        mMainTabSegment.setupWithViewPager(mViewPager, false);
     }
 }
