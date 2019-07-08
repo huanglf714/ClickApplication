@@ -51,7 +51,7 @@ public class FragmentLogin extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        Log.e("myLog","++++++++++++++++++++++++");
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
@@ -66,7 +66,6 @@ public class FragmentLogin extends Fragment {
         forgetPwdView = view.findViewById(R.id.forgetPwd);
         rememberPwd = view.findViewById(R.id.rememberPwd);
         boolean isRemember = sharedPreferences.getBoolean("remember_pwd",false);
-        Log.e("myLog",isRemember+"------------------------");
         if (isRemember){
             String accountStr = sharedPreferences.getString("account","");
             String passwordStr = sharedPreferences.getString("password","");
@@ -79,13 +78,10 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onClick(final View v) {
                 if(rememberPwd.isChecked()){
-                    Log.e("myLog",account.getText().toString()+"");
-                    Log.e("myLog",password.getText().toString()+"");
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("remember_pwd",true).commit();
-                    editor.putString("account",account.getText().toString()).commit();
-                    editor.putString("password",password.getText().toString()).commit();
+                    sharedPreferences.edit().putBoolean("remember_pwd",true).commit();
                 }
+                sharedPreferences.edit().putString("account",account.getText().toString()).commit();
+                sharedPreferences.edit().putString("password",password.getText().toString()).commit();
                 loginViewModel.loginWithPassword(
                         account.getText().toString(), password.getText().toString());
             }
@@ -117,6 +113,8 @@ public class FragmentLogin extends Fragment {
         loginViewModel.getIsLogin().observe(this, new Observer<BmobUser>() {
             @Override
             public void onChanged(BmobUser user) {
+                Log.e("myLog",user+"11111");
+                Log.e("myLog",user.getMobilePhoneNumber()+user.getUsername()+"00000");
                 sharedPreferences.edit().putBoolean("isLogin",true).commit();
                 Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_SHORT);
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);

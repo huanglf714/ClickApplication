@@ -40,4 +40,6 @@ public interface IUserRepository {
     MutableLiveData<BmobUser> getUserLiveData();
 
     MutableLiveData<BmobUser> getRegisterUserData();
+
+    void changePwd(String oldPassword, String newPassword, String newPasswordAgain);
 }

@@ -32,7 +32,7 @@
         <action
             android:id="@+id/toMainFromLogin"
             app:destination="@id/fragmentMain"
-            app:popUpTo="@+id/fragmentLogin" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/fragmentRegister"
@@ -54,7 +54,9 @@
             app:destination="@id/fragmentDetailNote" />
         <action
             android:id="@+id/toPersonFromMain"
-            app:destination="@id/fragmentPersonInfo" />
+            app:destination="@id/fragmentPersonInfo"
+            app:popUpTo="@+id/fragmentMain"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/fragmentDetailNote"
@@ -72,6 +74,29 @@
         tools:layout="@layout/fragment_person_info" >
         <action
             android:id="@+id/toMainFromPerson"
-            app:destination="@id/fragmentMain" />
+            app:destination="@id/fragmentMain"
+            app:popUpTo="@+id/fragmentPersonInfo"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentPersonInfo_to_fragmentChangePassword2"
+            app:destination="@id/fragmentChangePassword"
+            app:popUpTo="@+id/fragmentPersonInfo"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragmentPersonInfo_to_fragmentLaunch"
+            app:destination="@id/fragmentLaunch"
+            app:popUpTo="@+id/fragmentPersonInfo"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentChangePassword"
+        android:name="com.huanglf.test16.ui.css.FragmentChangePassword"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_fragmentChangePassword_to_fragmentLogin"
+            app:destination="@+id/fragmentLogin"
+            app:popUpTo="@+id/fragmentChangePassword"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
