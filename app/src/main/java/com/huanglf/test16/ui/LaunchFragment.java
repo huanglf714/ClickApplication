@@ -25,6 +25,7 @@ public class LaunchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e("myLog","launch fragment");
         return inflater.inflate(R.layout.fragment_launch, container, false);
     }
 
