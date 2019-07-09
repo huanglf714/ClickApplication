@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
-import com.huanglf.test16.repository.Note;
+import com.huanglf.test16.repository.database.Note;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 

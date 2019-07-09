@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="textInputLayout">#96ffffff</color>
     <color name="colorMain">#F04E27</color>
+    <color name="AliceBlue">#F0F8FF</color>
+
 </resources>

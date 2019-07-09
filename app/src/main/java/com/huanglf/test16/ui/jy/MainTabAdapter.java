@@ -51,6 +51,7 @@ public class MainTabAdapter extends PagerAdapter {
             NoteFragment noteFragment = NoteFragment.newInstance(COLUMN_COUNT);
             noteFragment.onAttach(context);
             view = noteFragment.onCreateView(layoutInflater, container, null);
+            noteFragment.onViewCreated(view, null);
             container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
         return view;

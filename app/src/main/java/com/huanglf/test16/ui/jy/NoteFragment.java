@@ -6,6 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,16 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.huanglf.test16.R;
-import com.huanglf.test16.dummy.DummyContent;
-import com.huanglf.test16.dummy.DummyContent.DummyItem;
-import com.huanglf.test16.repository.Note;
+import com.huanglf.test16.repository.database.Note;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,6 +42,7 @@ public class NoteFragment extends Fragment {
     private RecyclerView recyclerView;
     private ItemTouchHelperCallback itemTouchHelperCallback;
     private ItemTouchHelper itemTouchHelper;
+    private NoteListViewModel noteListViewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -86,29 +87,6 @@ public class NoteFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            itemTouchHelper.attachToRecyclerView(recyclerView);
-            mNoteList = new ArrayList<>(40);
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            mNoteList.add(new Note());
-            recyclerView.setAdapter(new MyNoteRecyclerViewAdapter(mNoteList, mListener));
         }
         return view;
     }
@@ -116,36 +94,14 @@ public class NoteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            private float x1, x2, y1, y2;
-
+        noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
+        noteListViewModel.getNoteList();
+        noteListViewModel.getNoteList().observe(this, new Observer<List<Note>>() {
             @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                    x1 = e.getX();
-                    y1 = e.getY();
-                }
-                if (e.getAction() == MotionEvent.ACTION_UP) {
-                    x2 = e.getX();
-                    y2 = e.getY();
-                    if (Math.abs(x1 - x2) < 6) {
-                        return false;// 距离较小，当作click事件来处理
-                    }
-                    if(Math.abs(x1 - x2) >60){  // 真正的onTouch事件
-                        Log.e("JY", "onInterceptTouchEvent: "+x1);
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
+            public void onChanged(List<Note> list) {
+                mNoteList = list;
+                recyclerView.setAdapter(new MyNoteRecyclerViewAdapter(mNoteList, mListener));
+                itemTouchHelper.attachToRecyclerView(recyclerView);
             }
         });
     }
@@ -178,7 +134,33 @@ public class NoteFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Note note);
+
+        /**
+         * 监听列表项内容点击事件
+         *
+         * @param note
+         */
+        void onNoteListListener(Note note);
+
+        /**
+         * 监听分享点击按钮
+         *
+         * @param note
+         */
+        void onShareListener(Note note);
+
+        /**
+         * 监听收藏点击按钮
+         *
+         * @param note
+         */
+        void onFavorListener(Note note);
+
+        /**
+         * 监听删除点击按钮
+         *
+         * @param note
+         */
+        void onDeleteListener(Note note);
     }
 }
