@@ -9,9 +9,6 @@ import android.text.Layout;
 import android.text.Spanned;
 import android.text.style.BulletSpan;
 
-/**
- * Created by Leo on 2017/3/17.
- */
 
 public class ExtendBulletSpan extends BulletSpan {
 

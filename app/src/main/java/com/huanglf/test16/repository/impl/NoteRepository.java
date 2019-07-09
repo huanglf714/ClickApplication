@@ -2,10 +2,15 @@ package com.huanglf.test16.repository.impl;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+
 import com.huanglf.test16.repository.INoteRepository;
 import com.huanglf.test16.repository.database.AppDatabase;
 import com.huanglf.test16.repository.database.Note;
 import com.huanglf.test16.repository.database.NoteDAO;
+import com.huanglf.test16.util.AppExecutor;
+
+import java.util.List;
 
 
 /**
@@ -15,53 +20,109 @@ import com.huanglf.test16.repository.database.NoteDAO;
  */
 public class NoteRepository implements INoteRepository {
     private static NoteDAO noteDAO;
-    public NoteRepository(Context context){
-        noteDAO = AppDatabase.getInstance(context).getNoteDAO();
+    private static NoteRepository noteRepository;
+
+    public static NoteRepository getInstance() {
+        if (noteRepository == null) {
+            noteRepository = new NoteRepository();
+        }
+        return noteRepository;
+    }
+    private NoteRepository(){
+        noteDAO = AppDatabase.getInstance().getNoteDAO();
     }
 
     @Override
-    public void insertNote(Note note) {
-        noteDAO.insertNote(note);
+    public void insertNote(final Note note) {
+        AppExecutor executor =AppExecutor.getInstance();
+        executor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDAO.insertNote(note);
+            }
+        });
+
     }
 
     @Override
-    public void updateNote(Note note) {
-        noteDAO.updateNote(note);
+    public void updateNote(final Note note) {
+        AppExecutor executor =AppExecutor.getInstance();
+        executor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDAO.updateNote(note);
+            }
+        });
+
     }
 
     @Override
-    public void deleteOneNote(Note note) {
-        noteDAO.deleteOneNote(note);
+    public void deleteOneNote(final Note note) {
+        AppExecutor executor =AppExecutor.getInstance();
+        executor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDAO.deleteOneNote(note);
+            }
+        });
+
     }
 
     @Override
-    public void deleteNotes(Note[] notes) {
-        noteDAO.deleteNotes(notes);
+    public void deleteNotes(final Note[] notes) {
+        AppExecutor executor =AppExecutor.getInstance();
+        executor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDAO.deleteNotes(notes);
+            }
+        });
+
     }
 
     @Override
-    public void combineNotes(Note[] notes) {
-        Note[] notesTmp = new Note[notes.length-1];
+    public void combineNotes(final Note[] notes) {
+        final Note[] notesTmp = new Note[notes.length-1];
         for(int i=1;i<notes.length;i++){
             notes[0].setContent(notes[i].getContent());
             notesTmp[i-1] = notes[i];
         }
-        noteDAO.updateNote(notes[0]);
-        noteDAO.deleteNotes(notesTmp);
+        AppExecutor executor =AppExecutor.getInstance();
+        executor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDAO.updateNote(notes[0]);
+                noteDAO.deleteNotes(notesTmp);
+            }
+        });
+
     }
 
     @Override
-    public void addStar(Note note) {
-        noteDAO.updateNote(note);
+    public void addStar(final Note note) {
+        AppExecutor executor =AppExecutor.getInstance();
+        executor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDAO.updateNote(note);
+            }
+        });
+
     }
 
     @Override
-    public void cancelStar(Note note) {
-        noteDAO.updateNote(note);
+    public void cancelStar(final Note note) {
+        AppExecutor executor =AppExecutor.getInstance();
+        executor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                noteDAO.updateNote(note);
+            }
+        });
     }
 
     @Override
-    public Note[] loadAllNotes() {
+    public LiveData<List<Note>> loadAllNotes() {
         return noteDAO.loadAllNotes();
     }
 }

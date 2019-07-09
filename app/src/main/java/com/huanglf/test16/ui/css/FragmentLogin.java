@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.huanglf.test16.ClickApplication;
 import com.huanglf.test16.R;
 import com.huanglf.test16.common.MessageEnum;
+import com.huanglf.test16.ui.jy.FragmentMain;
 
 import cn.bmob.v3.BmobUser;
 
@@ -51,7 +52,6 @@ public class FragmentLogin extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
@@ -66,7 +66,6 @@ public class FragmentLogin extends Fragment {
         forgetPwdView = view.findViewById(R.id.forgetPwd);
         rememberPwd = view.findViewById(R.id.rememberPwd);
         boolean isRemember = sharedPreferences.getBoolean("remember_pwd",false);
-        Log.e("myLog",isRemember+"------------------------");
         if (isRemember){
             String accountStr = sharedPreferences.getString("account","");
             String passwordStr = sharedPreferences.getString("password","");
@@ -79,13 +78,10 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onClick(final View v) {
                 if(rememberPwd.isChecked()){
-                    Log.e("myLog",account.getText().toString()+"");
-                    Log.e("myLog",password.getText().toString()+"");
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("remember_pwd",true).commit();
-                    editor.putString("account",account.getText().toString()).commit();
-                    editor.putString("password",password.getText().toString()).commit();
+                    sharedPreferences.edit().putBoolean("remember_pwd",true).commit();
                 }
+                sharedPreferences.edit().putString("account",account.getText().toString()).commit();
+                sharedPreferences.edit().putString("password",password.getText().toString()).commit();
                 loginViewModel.loginWithPassword(
                         account.getText().toString(), password.getText().toString());
             }
@@ -114,11 +110,11 @@ public class FragmentLogin extends Fragment {
 
 
         //数据监听
-        loginViewModel.getIsLogin().observe(this, new Observer<BmobUser>() {
+        loginViewModel.getIsLogin().observe(this, new Observer<String>() {
             @Override
-            public void onChanged(BmobUser user) {
+            public void onChanged(String s) {
                 sharedPreferences.edit().putBoolean("isLogin",true).commit();
-                Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_LONG);
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }
         });

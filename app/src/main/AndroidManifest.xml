@@ -28,7 +28,7 @@
 
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.huanglf.test16.BmobContentProvider"></provider>
+            android:authorities="com.huanglf.test16.BmobContentProvider" />
     </application>
 
 </manifest>

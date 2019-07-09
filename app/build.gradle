@@ -18,8 +18,11 @@ android {
         }
     }
     useLibrary 'org.apache.http.legacy'
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     useLibrary 'android.test.runner'
-
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
 }

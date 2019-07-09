@@ -15,6 +15,8 @@ public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private String title;
+
     private String content;
 
     @ColumnInfo(name = "create_date")
@@ -26,12 +28,26 @@ public class Note {
     @ColumnInfo(name = "is_star")
     private Boolean isStar;
 
+    public Note(String title, String content,String updateDate) {
+        this.title = title;
+        this.content = content;
+        this.updateDate = updateDate;
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -70,6 +86,7 @@ public class Note {
     public String toString() {
         return "Note{" +
                 "id=" + id +
+                "title=" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", createDate='" + createDate + '\'' +
                 ", updateDate='" + updateDate + '\'' +
