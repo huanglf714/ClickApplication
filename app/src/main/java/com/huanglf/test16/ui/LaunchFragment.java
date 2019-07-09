@@ -25,7 +25,6 @@ public class LaunchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("myLog","launch fragment");
         return inflater.inflate(R.layout.fragment_launch, container, false);
     }
 
@@ -33,10 +32,8 @@ public class LaunchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if(sharedPreferences.getBoolean("isLogin",false)){
-            Log.e("myLog","已登陆过");
             Navigation.findNavController(getView()).navigate(R.id.actionLaunchMain);
         }else{
-            Log.e("myLog","第一次登陆");
             Navigation.findNavController(getView()).navigate(R.id.actionLaunchLogin);
         }
     }

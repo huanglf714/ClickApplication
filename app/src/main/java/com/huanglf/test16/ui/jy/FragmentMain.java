@@ -38,7 +38,6 @@ public class FragmentMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.e("myLog","main fragment");
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         mViewPager = view.findViewById(R.id.contentViewPager);
         mMainTabSegment = view.findViewById(R.id.mainTabSegment);

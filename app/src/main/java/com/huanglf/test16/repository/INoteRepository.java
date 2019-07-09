@@ -1,6 +1,10 @@
 package com.huanglf.test16.repository;
 
+import androidx.lifecycle.LiveData;
+
 import com.huanglf.test16.repository.database.Note;
+
+import java.util.List;
 
 /**
  * Date: 2019/7/8
@@ -35,7 +39,7 @@ public interface INoteRepository {
      * 查询所有笔记
      * @return
      */
-    Note[] loadAllNotes();
+    LiveData<List<Note>> loadAllNotes();
 
     /**
      * 合并笔记

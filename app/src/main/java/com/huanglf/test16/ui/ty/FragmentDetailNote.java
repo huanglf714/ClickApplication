@@ -26,6 +26,7 @@ import com.huanglf.test16.repository.editText.ExtendEditText;
 import com.huanglf.test16.repository.editText.ExtendEditTextListener;
 import com.huanglf.test16.repository.editText.Rule;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +59,7 @@ public class FragmentDetailNote extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         setupExtendEditText();
@@ -71,12 +72,15 @@ public class FragmentDetailNote extends Fragment {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 String date = df.format(new Date());
                 //后面修改，通过接收数据来判断是否为新建笔记
-                /*int id = 0;
+                int id = 0;
                 if(id == 0) {
                     saveViewModel.saveNote(title,content,date);
                 }else {
                     saveViewModel.saveNote(id,title,content,date);
-                }*/
+                }
+                Log.e("myLog","has save the note");
+                Navigation.findNavController(view)
+                        .navigate(R.id.action_fragmentDetailNote_to_testFragment);
             }
         });
 

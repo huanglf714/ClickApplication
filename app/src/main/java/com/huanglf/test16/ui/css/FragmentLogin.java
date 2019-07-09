@@ -52,7 +52,6 @@ public class FragmentLogin extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.e("myLog","login fragment");
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
@@ -115,7 +114,6 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onChanged(String s) {
                 sharedPreferences.edit().putBoolean("isLogin",true).commit();
-                Log.e("myLog","return the string is "+s);
                 Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_LONG);
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }

@@ -10,7 +10,7 @@ import com.huanglf.test16.util.MessageUtil;
 /**
  * date：2019/7/8
  * desc：
- *TO do save note into mysql database
+ * TO do save note into room database
  * @author TY
  */
 public class SaveViewModel extends ViewModel {
