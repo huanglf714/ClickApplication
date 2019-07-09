@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Button;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -30,6 +31,13 @@ public class TopBarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_top_bar, container, false);
         mTopBar = view.findViewById(R.id.topBar);
         initTopBar();
+        Button btn = view.findViewById(R.id.right_new);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.toDetailFromMain);
+            }
+        });
         return view;
     }
 
