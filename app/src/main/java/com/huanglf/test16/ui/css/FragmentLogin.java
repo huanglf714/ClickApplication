@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.huanglf.test16.ClickApplication;
 import com.huanglf.test16.R;
 import com.huanglf.test16.common.MessageEnum;
+import com.huanglf.test16.ui.jy.FragmentMain;
 
 import cn.bmob.v3.BmobUser;
 
@@ -51,7 +52,7 @@ public class FragmentLogin extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.e("myLog","++++++++++++++++++++++++");
+        Log.e("myLog","login fragment");
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
@@ -110,13 +111,12 @@ public class FragmentLogin extends Fragment {
 
 
         //数据监听
-        loginViewModel.getIsLogin().observe(this, new Observer<BmobUser>() {
+        loginViewModel.getIsLogin().observe(this, new Observer<String>() {
             @Override
-            public void onChanged(BmobUser user) {
-                Log.e("myLog",user+"11111");
-                Log.e("myLog",user.getMobilePhoneNumber()+user.getUsername()+"00000");
+            public void onChanged(String s) {
                 sharedPreferences.edit().putBoolean("isLogin",true).commit();
-                Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_SHORT);
+                Log.e("myLog","return the string is "+s);
+                Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_LONG);
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }
         });

@@ -94,9 +94,12 @@
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" >
         <action
-            android:id="@+id/action_fragmentChangePassword_to_fragmentLogin"
-            app:destination="@+id/fragmentLogin"
-            app:popUpTo="@+id/fragmentChangePassword"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_fragmentChangePassword_to_fragmentLaunch"
+            app:destination="@id/fragmentLaunch"
+            app:popUpTo="@+id/fragmentChangePassword" />
+        <action
+            android:id="@+id/action_fragmentChangePassword_to_fragmentPersonInfo"
+            app:destination="@id/fragmentPersonInfo"
+            app:popUpTo="@+id/fragmentChangePassword" />
     </fragment>
 </navigation>

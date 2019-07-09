@@ -34,4 +34,8 @@ public class ChangePasswordViewModel extends ViewModel {
     public static MutableLiveData<String> getChangePasswordLiveData() {
         return changePasswordLiveData;
     }
+
+    public static void setChangePasswordLiveData() {
+        ChangePasswordViewModel.changePasswordLiveData = new MutableLiveData<>();
+    }
 }
