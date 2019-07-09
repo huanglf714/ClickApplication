@@ -1,8 +1,5 @@
 package com.huanglf.test16.repository.editText;
 
-/**
- * Created by Leo on 2017/3/17.
- */
 
 public class TypeBean {
 

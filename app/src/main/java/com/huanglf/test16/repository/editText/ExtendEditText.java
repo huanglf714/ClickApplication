@@ -621,5 +621,4 @@ public class ExtendEditText extends androidx.appcompat.widget.AppCompatEditText 
             mListener.onCursorChange(selStart, selEnd, getSelectionStyles(selStart, selEnd));
         }
     }
-
 }

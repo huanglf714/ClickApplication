@@ -1,14 +1,20 @@
 package com.huanglf.test16.ui.ty;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.OnLifecycleEvent;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
+import android.text.Html;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +26,8 @@ import com.huanglf.test16.repository.editText.ExtendEditText;
 import com.huanglf.test16.repository.editText.ExtendEditTextListener;
 import com.huanglf.test16.repository.editText.Rule;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -36,6 +44,7 @@ public class FragmentDetailNote extends Fragment {
     private ImageButton mIbBullet;
     private ImageButton mIbClear;
     private ExtendEditText editText;
+    private SaveViewModel saveViewModel;
 
     public FragmentDetailNote() {
         // Required empty public constructor
@@ -49,16 +58,38 @@ public class FragmentDetailNote extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
         setupExtendEditText();
+        saveViewModel = ViewModelProviders.of(this).get(SaveViewModel.class);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = saveViewModel.getTitle((editText.getText()).toString());
+                String content = Html.toHtml(editText.getText());
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                String date = df.format(new Date());
+                //后面修改，通过接收数据来判断是否为新建笔记
+                /*int id = 0;
+                if(id == 0) {
+                    saveViewModel.saveNote(title,content,date);
+                }else {
+                    saveViewModel.saveNote(id,title,content,date);
+                }*/
+            }
+        });
+
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.toMainFromDetail);
             }
         });
+        /**
+         * set Click Listener for every font style change button
+         */
         mIbBold.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

@@ -15,6 +15,17 @@ import com.huanglf.test16.repository.database.NoteDAO;
  */
 public class NoteRepository implements INoteRepository {
     private static NoteDAO noteDAO;
+    private static NoteRepository noteRepository;
+
+    private NoteRepository(){
+
+    }
+    public static NoteRepository getInstance() {
+        if (noteRepository == null) {
+            noteRepository = new NoteRepository();
+        }
+        return noteRepository;
+    }
     public NoteRepository(Context context){
         noteDAO = AppDatabase.getInstance(context).getNoteDAO();
     }
