@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -16,10 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.common.MessageEnum;
+import com.huanglf.test16.repository.impl.UserRepositoryImpl;
 
 import static com.huanglf.test16.ClickApplication.sharedPreferences;
 
@@ -33,6 +36,7 @@ public class FragmentChangePassword extends Fragment {
     EditText oldPasswordText = null;
     EditText newPasswordText = null;
     EditText newPasswordAgainText = null;
+    ImageView back = null;
 
 
     public FragmentChangePassword() {
@@ -51,6 +55,7 @@ public class FragmentChangePassword extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         changePasswordViewModel = ViewModelProviders.of(this).get(ChangePasswordViewModel.class);
         button = view.findViewById(R.id.changePasswordBtn);
+        back = view.findViewById(R.id.back_img);
         oldPasswordText = view.findViewById(R.id.oldPasswordText);
         newPasswordText = view.findViewById(R.id.newPasswordText);
         newPasswordAgainText = view.findViewById(R.id.newPasswordAgainText);
@@ -63,16 +68,22 @@ public class FragmentChangePassword extends Fragment {
                 changePasswordViewModel.changePassword(oldPassword, newPassword, newPasswordAgain);
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_fragmentChangePassword_to_fragmentPersonInfo);
+            }
+        });
 
         ChangePasswordViewModel.getChangePasswordLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                Log.e("MyLog",s+"99999999999999999999999999");
                 Toast.makeText(getContext(), s, Toast.LENGTH_SHORT);
                 sharedPreferences.edit().remove("isLogin").commit();
-                sharedPreferences.edit().remove("account").commit();
+//                sharedPreferences.edit().remove("account").commit();
                 sharedPreferences.edit().remove("password").commit();
-                Navigation.findNavController(getView()).navigate(R.id.action_fragmentChangePassword_to_fragmentLogin);
+                UserRepositoryImpl.getInstance().setLoginUserData(new MutableLiveData<String>());
+                Navigation.findNavController(getView()).navigate(R.id.action_fragmentChangePassword_to_fragmentLaunch);
             }
         });
     }

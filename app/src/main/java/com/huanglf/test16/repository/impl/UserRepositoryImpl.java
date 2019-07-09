@@ -23,10 +23,10 @@ import static com.huanglf.test16.ui.css.ChangePasswordViewModel.changePasswordLi
  * Author: JinYue
  * description: 用户登录注册和个人信息业务
  */
-public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUserRepository {
+public class UserRepositoryImpl implements IUserRepository {
     private static UserRepositoryImpl userRepositoryImpl;
-    private final MutableLiveData<BmobUser> userLiveData = new MutableLiveData<>();
-    private final MutableLiveData<BmobUser> registerUserData = new MutableLiveData<>();
+    private MutableLiveData<String> loginUserData = new MutableLiveData<>();
+    private MutableLiveData<BmobUser> registerUserData = new MutableLiveData<>();
 
 
     private UserRepositoryImpl() {
@@ -41,9 +41,19 @@ public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUser
 
     @Override
     public void loginWithPassword(String account, String password) {
-        BmobUser.loginByAccount(account, password, this);
+        BmobUser.loginByAccount(account, password, new LogInListener<BmobUser>() {
+            @Override
+            public void done(BmobUser s, BmobException e) {
+                if (e != null) {
+                    Log.e("myLog",e.toString());
+                    MessageUtil.error("用户名或密码错误");
+                } else {
+                    Log.e("myLog","*******************************");
+                    loginUserData.postValue("登录成功");
+                }
+            }
+        });
     }
-
 
     @Override
     public void loginWithWeChat() {
@@ -135,23 +145,25 @@ public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUser
         return result[0];
     }
 
-    @Override
-    public void done(BmobUser bmobUser, BmobException e) {
-        if (bmobUser == null && e != null) {
-            MessageUtil.error("用户名或密码错误");
-        } else {
-            userLiveData.postValue(bmobUser);
-        }
 
+    @Override
+    public MutableLiveData<String> getLoginUserData() {
+        return loginUserData;
     }
 
     @Override
-    public MutableLiveData<BmobUser> getUserLiveData() {
-        return this.userLiveData;
-    }
-
     public MutableLiveData<BmobUser> getRegisterUserData() {
         return registerUserData;
+    }
+
+    @Override
+    public void setLoginUserData(MutableLiveData<String> loginUserData) {
+        this.loginUserData = loginUserData;
+    }
+
+    @Override
+    public void setRegisterUserData(MutableLiveData<BmobUser> registerUserData) {
+        this.registerUserData = registerUserData;
     }
 
     @Override
@@ -163,7 +175,6 @@ public class UserRepositoryImpl extends LogInListener<BmobUser> implements IUser
                 @Override
                 public void done(BmobException e) {
                     if (e != null) {
-                        Log.e("Mylog", e.toString()+"dddddddddddddd");
                         MessageUtil.error("修改密码失败");
                     }
                     else {

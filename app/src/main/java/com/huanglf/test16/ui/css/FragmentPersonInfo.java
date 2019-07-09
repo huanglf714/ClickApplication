@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huanglf.test16.R;
+import com.huanglf.test16.repository.impl.UserRepositoryImpl;
 
 import cn.bmob.v3.BmobUser;
 
@@ -63,16 +65,15 @@ public class FragmentPersonInfo extends Fragment {
 
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(getView()).navigate(R.id.fragmentChangePassword);
+                ChangePasswordViewModel.setChangePasswordLiveData();
+                Navigation.findNavController(getView()).navigate(R.id.action_fragmentPersonInfo_to_fragmentChangePassword2);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sharedPreferences.edit().remove("isLogin").commit();
-                Log.e("myLog","1111111");
-//                BmobUser.logOut();
-                Log.e("myLog","2222222222");
+                UserRepositoryImpl.getInstance().setLoginUserData(new MutableLiveData<String>());
                 Navigation.findNavController(v).navigate(R.id.action_fragmentPersonInfo_to_fragmentLaunch);
             }
         });

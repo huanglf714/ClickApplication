@@ -37,9 +37,13 @@ public interface IUserRepository {
 
     void alterPwd(String account,String confirmCode,String password,String repeatPwd);
 
-    MutableLiveData<BmobUser> getUserLiveData();
+    MutableLiveData<String> getLoginUserData();
 
     MutableLiveData<BmobUser> getRegisterUserData();
+
+    void setLoginUserData(MutableLiveData<String> loginUserData);
+
+    void setRegisterUserData(MutableLiveData<BmobUser> registerUserData);
 
     void changePwd(String oldPassword, String newPassword, String newPasswordAgain);
 }
