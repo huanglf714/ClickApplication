@@ -56,7 +56,7 @@ public class TopBarFragment extends Fragment {
     private void initTopBar() {
         mTopBar.setTitle("记录");
         mTopBar.addLeftImageButton(R.drawable.user_round, R.id.left_user);
-        mTopBar.addRightTextButton("+", R.id.right_new);
-        mTopBar.setBackgroundColor(Color.parseColor("#FFF04E27"));
+        mTopBar.addRightImageButton(R.drawable.plus, R.id.right_new);
+        mTopBar.setBackgroundColor(Color.parseColor("#359BFF"));
     }
 }

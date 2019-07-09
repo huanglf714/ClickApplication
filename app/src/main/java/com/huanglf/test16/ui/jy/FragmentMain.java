@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
+import com.huanglf.test16.repository.database.Note;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
-import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 
@@ -27,7 +27,6 @@ public class FragmentMain extends Fragment {
     private QMUITabSegment mMainTabSegment;
     private QMUITabSegment.Tab mMainTab, mFavorTab;
     private QMUIViewPager mViewPager;
-    private QMUITopBarLayout mTopBar;
 
     public FragmentMain() {
         // Required empty public constructor
@@ -38,7 +37,6 @@ public class FragmentMain extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.e("myLog","main fragment");
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         mViewPager = view.findViewById(R.id.contentViewPager);
         mMainTabSegment = view.findViewById(R.id.mainTabSegment);
@@ -87,7 +85,8 @@ public class FragmentMain extends Fragment {
     }
 
     private void initViewPager() {
-        mViewPager.setAdapter(new MainTabAdapter(getLayoutInflater()));
+        mViewPager.setAdapter(new MainTabAdapter(getLayoutInflater(), getContext()));
+        mViewPager.setSwipeable(false);
         mMainTabSegment.setupWithViewPager(mViewPager, false);
     }
 }

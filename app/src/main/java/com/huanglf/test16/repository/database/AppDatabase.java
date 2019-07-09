@@ -16,15 +16,15 @@ public abstract class AppDatabase extends RoomDatabase {
     private static final String DB_NAME = "Database.db";
     private static volatile AppDatabase instance;
 
-    public synchronized static AppDatabase getInstance(Context context){
-        if(instance==null){
-            instance = createInstance(context);
-        }
+    public synchronized static AppDatabase getInstance(){
         return instance;
     }
 
-    private static AppDatabase createInstance(Context context){
-        return Room.databaseBuilder(context,AppDatabase.class,DB_NAME).build();
+    public static AppDatabase createInstance(Context context){
+        if (instance==null){
+            instance =  Room.databaseBuilder(context,AppDatabase.class,DB_NAME).build();
+        }
+        return instance;
     }
 
     public abstract NoteDAO getNoteDAO();
