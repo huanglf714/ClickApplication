@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Created by Leo on 2017/3/17.
- */
 
 public class Italic extends Style {
 

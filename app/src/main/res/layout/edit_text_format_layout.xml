@@ -15,6 +15,32 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/increase"
+            android:contentDescription="@null"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:src="@mipmap/font_size_up"
+            android:scaleType="fitXY"
+            android:background="?android:selectableItemBackground">
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/decrease"
+            android:contentDescription="@null"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:src="@mipmap/font_size_down"
+            android:scaleType="fitXY"
+            android:background="?android:selectableItemBackground">
+        </ImageButton>
+
+        <ImageButton
             android:id="@+id/ib_bold"
             android:contentDescription="@null"
             android:layout_width="40dp"

@@ -1,4 +1,4 @@
-package com.huanglf.test16.ui.jy;
+package com.huanglf.test16.ui.ty;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,14 +27,14 @@ public class TopBarFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_top_bar, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail_note, container, false);
         mTopBar = view.findViewById(R.id.topBar);
         initTopBar();
-        Button btn = view.findViewById(R.id.right_new);
-        btn.setOnClickListener(new View.OnClickListener() {
+        ImageButton back = view.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.toDetailFromMain);
+                Navigation.findNavController(v).navigate(R.id.toMainFromDetail);
             }
         });
         return view;
@@ -46,9 +46,8 @@ public class TopBarFragment extends Fragment {
     }
 
     private void initTopBar() {
-        mTopBar.setTitle("记录");
-        mTopBar.addLeftImageButton(R.drawable.user_round, R.id.left_user);
-        mTopBar.addRightTextButton("+", R.id.right_new);
-        mTopBar.setBackgroundColor(Color.parseColor("#FFF04E27"));
+        mTopBar.setTitle("编辑备忘录");
+        mTopBar.addLeftImageButton(R.drawable.back, R.id.back);
+        mTopBar.addRightImageButton(R.drawable.save, R.id.save);
     }
 }

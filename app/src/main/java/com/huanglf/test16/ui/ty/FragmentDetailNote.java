@@ -36,6 +36,7 @@ import java.util.List;
  */
 public class FragmentDetailNote extends Fragment {
     private Button btnBack,btnSave = null;
+    private ImageButton increase,decrease;
     private ImageButton mIbBold;
     private ImageButton mIbItalic;
     private ImageButton mIbUnderline;
@@ -90,6 +91,20 @@ public class FragmentDetailNote extends Fragment {
         /**
          * set Click Listener for every font style change button
          */
+        increase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.increaseSize();
+            }
+        });
+
+        decrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.decreaseSize();
+            }
+        });
+
         mIbBold.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -137,6 +152,8 @@ public class FragmentDetailNote extends Fragment {
     private void initView(View view){
         btnBack = view.findViewById(R.id.back);
         btnSave = view.findViewById(R.id.save);
+        increase = view.findViewById(R.id.increase);
+        decrease = view.findViewById(R.id.decrease);
         mIbBold = view.findViewById(R.id.ib_bold);
         mIbBullet = view.findViewById(R.id.ib_bullet);
         mIbClear = view.findViewById(R.id.ib_clear);

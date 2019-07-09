@@ -5,56 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/top_bar"
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:elevation="5dp">
+        android:layout_height="80dp"
+        android:fitsSystemWindows="true" />
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:text="返回"/>
+    <Button
+        android:id="@+id/back"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="fitXY" />
 
-        <Button
-            android:id="@+id/save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:text="保存"/>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/remind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textFontWeight="2"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="fitXY" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@id/top_bar"></View>
+        android:layout_below="@id/topBar"/>
 
     <com.huanglf.test16.repository.editText.ExtendEditText
         android:id="@+id/extend_edit_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="8dp"
-        android:gravity="start"
+        android:layout_above="@+id/bottom_bar"
         android:layout_below="@id/divider"
         android:layout_marginTop="10dp"
-        android:layout_above="@+id/bottom_bar"
-        android:scrollbars="none"
         android:background="@android:color/transparent"
+        android:gravity="start"
+        android:paddingTop="8dp"
+        android:scrollbars="none"
         app:bulletColor="@color/colorPrimary"
-        app:quoteColor="@color/colorPrimary"
-        app:linkColor="@color/colorPrimaryDark"
         app:drawUnderLine="true"
         app:enableHistory="true"
         app:historyCapacity="50"
-        app:rule="EXCLUSIVE_EXCLUSIVE">
-    </com.huanglf.test16.repository.editText.ExtendEditText>
+        app:linkColor="@color/colorPrimaryDark"
+        app:quoteColor="@color/colorPrimary"
+        app:rule="EXCLUSIVE_EXCLUSIVE" />
 
     <include layout="@layout/edit_text_format_layout"
         android:id="@+id/bottom_bar"/>
