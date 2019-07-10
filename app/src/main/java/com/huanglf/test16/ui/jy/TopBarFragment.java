@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Button;
 
 import androidx.annotation.ColorInt;
@@ -30,7 +32,7 @@ public class TopBarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_top_bar, container, false);
         mTopBar = view.findViewById(R.id.topBar);
         initTopBar();
-        Button btn = view.findViewById(R.id.right_new);
+        ImageButton btn = view.findViewById(R.id.right_new);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,12 +45,19 @@ public class TopBarFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ImageView imageView = view.findViewById(R.id.left_user);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getView()).navigate(R.id.toPersonFromMain);
+            }
+        });
     }
 
     private void initTopBar() {
         mTopBar.setTitle("记录");
         mTopBar.addLeftImageButton(R.drawable.user_round, R.id.left_user);
-        mTopBar.addRightTextButton("+", R.id.right_new);
-        mTopBar.setBackgroundColor(Color.parseColor("#FFF04E27"));
+        mTopBar.addRightImageButton(R.drawable.plus, R.id.right_new);
+        mTopBar.setBackgroundColor(Color.parseColor("#359BFF"));
     }
 }

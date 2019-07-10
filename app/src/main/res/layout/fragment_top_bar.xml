@@ -11,16 +11,14 @@
     android:layout_height="80dp"
     android:fitsSystemWindows="true" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/left_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <ImageButton
         android:id="@+id/right_new"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textFontWeight="2"
-        android:textSize="30sp" />
+        android:layout_height="wrap_content" />
 
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

@@ -25,10 +25,12 @@ public class MainTabAdapter extends PagerAdapter {
 
     private final int COUNT = 2;
     private final int COLUMN_COUNT = 1;
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
+    private final Context context;
 
-    public MainTabAdapter(LayoutInflater layoutInflater) {
+    public MainTabAdapter(LayoutInflater layoutInflater, Context context) {
         this.layoutInflater = layoutInflater;
+        this.context = context;
     }
 
     @Override
@@ -44,9 +46,14 @@ public class MainTabAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        NoteFragment noteFragment = NoteFragment.newInstance(COLUMN_COUNT);
-        View view = noteFragment.onCreateView(layoutInflater, null, null);
-        container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        View view = container.getChildAt(position);
+        if (view == null) {
+            NoteFragment noteFragment = NoteFragment.newInstance(COLUMN_COUNT);
+            noteFragment.onAttach(context);
+            view = noteFragment.onCreateView(layoutInflater, container, null);
+            //noteFragment.onViewCreated(view, null);
+            container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        }
         return view;
     }
 

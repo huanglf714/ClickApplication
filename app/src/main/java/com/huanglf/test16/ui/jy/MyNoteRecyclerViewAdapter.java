@@ -2,11 +2,15 @@ package com.huanglf.test16.ui.jy;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.huanglf.test16.repository.database.Note;
 import com.huanglf.test16.ui.jy.NoteFragment.OnListFragmentInteractionListener;
 import com.huanglf.test16.R;
 import com.huanglf.test16.dummy.DummyContent.DummyItem;
@@ -20,10 +24,12 @@ import java.util.List;
  */
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Note> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private final String UN_FAVOR = "unfavor";
+    private final String FAVOR = "favor";
 
-    public MyNoteRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyNoteRecyclerViewAdapter(List<Note> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,18 +42,59 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        Note note = mValues.get(position);
+        holder.mItem = note;
+        holder.mNote.setText("你好啊" + position);
+//        设置收藏图标
+        holder.mFavor.setImageResource(R.drawable.start);
+        holder.mFavor.setTag(UN_FAVOR);
+//        添加分享响应事件
+        holder.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onShareListener(holder.mItem);
+                }
+            }
+        });
+        //添加收藏响应
+        holder.mFavor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    ImageView favorIcon = (ImageView) v;
+                    if (favorIcon.getTag().equals(FAVOR)) {
+                        favorIcon.setImageResource(R.drawable.start);
+                        favorIcon.setTag(UN_FAVOR);
+                    } else {
+                        favorIcon.setImageResource(R.drawable.start_selected);
+                        favorIcon.setTag(FAVOR);
+                    }
+                }
+                if (null != mListener) {
+                    mListener.onFavorListener(holder.mItem);
+                }
+            }
+        });
+//        刪除监听
+        holder.mMenuDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("JY", "onClick: " + position + "---------" + holder.getAdapterPosition());
+                mValues.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                if (null != mListener) {
+                    mListener.onDeleteListener(holder.mItem);
+                }
+            }
+        });
+        //进入编辑页面
+        holder.mContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mListener) {
+                    mListener.onNoteListListener(holder.mItem);
                 }
             }
         });
@@ -60,20 +107,33 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final LinearLayout mContent;
+        public final TextView mNote;
+        public final ImageView mShare;
+        public final ImageView mFavor;
+        public final View mSeparator;
+        public final TextView mMenuDelete;
+        public Note mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mContent = view.findViewById(R.id.content);
+            mNote = view.findViewById(R.id.note);
+            mShare = view.findViewById(R.id.share);
+            mFavor = view.findViewById(R.id.favor);
+            mSeparator = view.findViewById(R.id.separator);
+            mMenuDelete = view.findViewById(R.id.menu_delete);
+        }
+
+
+        public float getActionWidth() {
+            return mMenuDelete.getWidth();
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mNote.getText() + "'";
         }
     }
 }

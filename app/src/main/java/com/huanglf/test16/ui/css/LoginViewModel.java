@@ -1,6 +1,8 @@
 package com.huanglf.test16.ui.css;
 
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -16,7 +18,7 @@ import cn.bmob.v3.BmobUser;
  */
 public class LoginViewModel extends ViewModel {
     private IUserRepository userRepository = UserRepositoryImpl.getInstance();
-
+    private MutableLiveData<String> userLiveData = new MutableLiveData<>();
     /**
      * 手机账户+密码登录
      */
@@ -32,7 +34,7 @@ public class LoginViewModel extends ViewModel {
         userRepository.loginWithWeChat();
     }
 
-    public MutableLiveData<BmobUser> getIsLogin() {
-        return userRepository.getUserLiveData();
+    public MutableLiveData<String> getIsLogin() {
+        return userRepository.getLoginUserData();
     }
 }
