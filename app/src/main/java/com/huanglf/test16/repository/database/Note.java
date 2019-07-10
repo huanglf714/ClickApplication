@@ -28,10 +28,24 @@ public class Note {
     @ColumnInfo(name = "is_star")
     private Boolean isStar;
 
-    public Note(String title, String content,String updateDate) {
+    public Note() {
+        this.isStar = false;
+    }
+
+    public Note(String title, String content, String updateDate) {
         this.title = title;
         this.content = content;
         this.updateDate = updateDate;
+        this.isStar = false;
+    }
+
+    public Note(int id, String title, String content, String createDate, String updateDate, Boolean isStar) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.isStar = isStar;
     }
 
     public int getId() {
@@ -75,6 +89,9 @@ public class Note {
     }
 
     public Boolean getStar() {
+        if (this.isStar == null) {
+            this.isStar = false;
+        }
         return isStar;
     }
 
@@ -86,7 +103,7 @@ public class Note {
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                "title=" + title + '\'' +
+                ", title=" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", createDate='" + createDate + '\'' +
                 ", updateDate='" + updateDate + '\'' +
