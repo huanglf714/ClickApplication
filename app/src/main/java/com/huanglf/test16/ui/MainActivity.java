@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
@@ -18,7 +20,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 public class MainActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
     private NoteListViewModel noteListViewModel;
-
+    private final String ARG_DATA = "note_data";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,10 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.OnLi
     }
 
     @Override
-    public void onNoteListListener(Note note) {
+    public void onNoteListListener(View v, Note note) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_DATA,note);
+        Navigation.findNavController(v).navigate(R.id.toDetailFromMain,args);
     }
 
     @Override

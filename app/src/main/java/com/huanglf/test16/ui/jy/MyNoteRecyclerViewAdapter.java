@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Note> mValues;
+    private List<Note> mValues;
     private final OnListFragmentInteractionListener mListener;
     private final String UN_FAVOR = "unfavor";
     private final String FAVOR = "favor";
@@ -101,10 +101,19 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onNoteListListener(holder.mItem);
+                    mListener.onNoteListListener(v, holder.mItem);
                 }
             }
         });
+    }
+
+
+    public void setmValues(List<Note> notes) {
+        this.mValues = notes;
+    }
+
+    public void notifyData() {
+        notifyDataSetChanged();
     }
 
     @Override
