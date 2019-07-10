@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import lombok.NonNull;
+import java.io.Serializable;
+
 
 /**
  * Date: 2019/7/3
@@ -11,7 +14,7 @@ import androidx.room.PrimaryKey;
  * description:
  */
 @Entity
-public class Note {
+public class Note implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -26,12 +29,30 @@ public class Note {
     private String updateDate;
 
     @ColumnInfo(name = "is_star")
-    private Boolean isStar;
+    private Boolean isStar = false;
 
-    public Note(String title, String content,String updateDate) {
+    @ColumnInfo(name = "tag_id")
+    @NonNull
+    private int tagId;
+
+    public Note() {
+        this.isStar = false;
+    }
+
+    public Note(String title, String content, String updateDate) {
         this.title = title;
         this.content = content;
         this.updateDate = updateDate;
+//        this.isStar = false;
+    }
+
+    public Note(int id, String title, String content, String createDate, String updateDate, Boolean isStar) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.isStar = isStar;
     }
 
     public int getId() {
@@ -75,6 +96,9 @@ public class Note {
     }
 
     public Boolean getStar() {
+        if (this.isStar == null) {
+            this.isStar = false;
+        }
         return isStar;
     }
 
@@ -82,11 +106,19 @@ public class Note {
         isStar = star;
     }
 
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
+    }
+
     @Override
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                "title=" + title + '\'' +
+                ", title=" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", createDate='" + createDate + '\'' +
                 ", updateDate='" + updateDate + '\'' +

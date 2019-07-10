@@ -21,12 +21,11 @@ public class ChangePasswordViewModel extends ViewModel {
     public static MutableLiveData<String> changePasswordLiveData = new MutableLiveData<>();
 
     public void changePassword(String oldPassword,
-                                 String newPassword, String newPasswordAgain) {
-        Log.e("Mylog", sharedPreferences.getString("password", "")+"fffffffffffff");
-        if(!oldPassword.equals(sharedPreferences.getString("password", ""))) {
+                               String newPassword, String newPasswordAgain) {
+        Log.e("Mylog", sharedPreferences.getString("password", "") + "fffffffffffff");
+        if (!oldPassword.equals(sharedPreferences.getString("password", ""))) {
             MessageUtil.error("原密码不正确");
-        }
-        else{
+        } else {
             userRepository.changePwd(oldPassword, newPassword, newPasswordAgain);
         }
     }

@@ -8,14 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
-import com.huanglf.test16.repository.database.Note;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
@@ -85,7 +83,7 @@ public class FragmentMain extends Fragment {
     }
 
     private void initViewPager() {
-        mViewPager.setAdapter(new MainTabAdapter(getLayoutInflater(), getContext()));
+        mViewPager.setAdapter(new MainTabAdapter(getActivity().getSupportFragmentManager(), 0));
         mViewPager.setSwipeable(false);
         mMainTabSegment.setupWithViewPager(mViewPager, false);
     }

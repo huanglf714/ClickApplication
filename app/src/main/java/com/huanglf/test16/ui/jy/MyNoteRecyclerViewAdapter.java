@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Note> mValues;
+    private List<Note> mValues;
     private final OnListFragmentInteractionListener mListener;
     private final String UN_FAVOR = "unfavor";
     private final String FAVOR = "favor";
@@ -43,12 +43,17 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Note note = mValues.get(position);
+        final Note note = mValues.get(position);
         holder.mItem = note;
-        holder.mNote.setText("你好啊" + position);
+        holder.mNote.setText(note.getTitle());
 //        设置收藏图标
-        holder.mFavor.setImageResource(R.drawable.start);
-        holder.mFavor.setTag(UN_FAVOR);
+        if (note.getStar()) {
+            holder.mFavor.setImageResource(R.drawable.start_selected);
+            holder.mFavor.setTag(FAVOR);
+        } else {
+            holder.mFavor.setImageResource(R.drawable.start);
+            holder.mFavor.setTag(UN_FAVOR);
+        }
 //        添加分享响应事件
         holder.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +72,11 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
                     if (favorIcon.getTag().equals(FAVOR)) {
                         favorIcon.setImageResource(R.drawable.start);
                         favorIcon.setTag(UN_FAVOR);
+                        holder.mItem.setStar(false);
                     } else {
                         favorIcon.setImageResource(R.drawable.start_selected);
                         favorIcon.setTag(FAVOR);
+                        holder.mItem.setStar(true);
                     }
                 }
                 if (null != mListener) {
@@ -94,10 +101,19 @@ public class MyNoteRecyclerViewAdapter extends RecyclerView.Adapter<MyNoteRecycl
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onNoteListListener(holder.mItem);
+                    mListener.onNoteListListener(v, holder.mItem);
                 }
             }
         });
+    }
+
+
+    public void setmValues(List<Note> notes) {
+        this.mValues = notes;
+    }
+
+    public void notifyData() {
+        notifyDataSetChanged();
     }
 
     @Override

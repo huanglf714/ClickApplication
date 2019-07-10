@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-public class Strikethrough  extends Style {
+public class Strikethrough extends Style {
 
     @Override
     public void set(Editable text, int start, int end) {

@@ -18,6 +18,7 @@ import static cn.bmob.v3.Bmob.getApplicationContext;
  */
 public class ClickApplication extends Application {
     public static SharedPreferences sharedPreferences = null;
+
     @Override
     public void onCreate() {
         super.onCreate();

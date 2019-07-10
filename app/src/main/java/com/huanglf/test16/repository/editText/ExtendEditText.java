@@ -208,7 +208,7 @@ public class ExtendEditText extends androidx.appcompat.widget.AppCompatEditText 
         List<Integer> styles = new ArrayList<>();
 
         Bold bold = new Bold();
-        if(bold.isSetting(getEditableText(), finalStart, finalEnd)) {
+        if (bold.isSetting(getEditableText(), finalStart, finalEnd)) {
             styles.add(STYLE_BOLD);
         }
 
@@ -373,7 +373,7 @@ public class ExtendEditText extends androidx.appcompat.widget.AppCompatEditText 
         boolean result = false;
 
         Bold bold = new Bold();
-        if(bold.isSetting(getEditableText(), start, end)) {
+        if (bold.isSetting(getEditableText(), start, end)) {
             bold.remove(getEditableText(), start, end);
             result = true;
         }
@@ -616,6 +616,7 @@ public class ExtendEditText extends androidx.appcompat.widget.AppCompatEditText 
 
     /**
      * 记录风格历史
+     *
      * @param text 文本
      */
     private void addTextToHistory(CharSequence text) {

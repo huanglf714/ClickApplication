@@ -33,9 +33,9 @@ public interface IUserRepository {
     /**
      * 用户注册
      */
-    void register(String account,String confirmCode,String password,String repeatPwd);
+    void register(String account, String confirmCode, String password, String repeatPwd);
 
-    void alterPwd(String account,String confirmCode,String password,String repeatPwd);
+    void alterPwd(String account, String confirmCode, String password, String repeatPwd);
 
     MutableLiveData<String> getLoginUserData();
 
