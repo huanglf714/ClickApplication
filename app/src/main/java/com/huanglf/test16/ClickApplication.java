@@ -6,8 +6,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.huanglf.test16.repository.database.AppDatabase;
+import com.mob.MobSDK;
 
 import cn.bmob.v3.Bmob;
+import cn.sharesdk.framework.ShareSDK;
 
 import static cn.bmob.v3.Bmob.getApplicationContext;
 
@@ -18,6 +20,7 @@ import static cn.bmob.v3.Bmob.getApplicationContext;
  */
 public class ClickApplication extends Application {
     public static SharedPreferences sharedPreferences = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -25,5 +28,6 @@ public class ClickApplication extends Application {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         Bmob.initialize(this, "8586480382e9cd031762ec9e654151d0");
         AppDatabase.createInstance(getApplicationContext());
+        MobSDK.init(this, "2baac44aa00ca", "1d966f917b4b8c8a3af847d804b847a0");
     }
 }

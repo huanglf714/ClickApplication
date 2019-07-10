@@ -1,7 +1,6 @@
 package com.huanglf.test16.ui.css;
 
-import android.content.Context;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,18 +9,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.impl.UserRepositoryImpl;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout;
 
-import cn.bmob.v3.BmobUser;
 
 import static com.huanglf.test16.ClickApplication.sharedPreferences;
 
@@ -30,7 +28,8 @@ import static com.huanglf.test16.ClickApplication.sharedPreferences;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentPersonInfo extends Fragment {
-    ImageView btnBack = null;
+    QMUIWindowInsetLayout topBarView = null;
+    QMUITopBarLayout personTopBar = null;
     TextView accountTv = null;
     TextView changePasswordTv = null;
     Button logout = null;
@@ -53,8 +52,12 @@ public class FragmentPersonInfo extends Fragment {
         accountTv = view.findViewById(R.id.accountTv);
         accountTv.setText(accountStr);
         logout = view.findViewById(R.id.logout);
-        btnBack = view.findViewById(R.id.back);
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        topBarView = view.findViewById(R.id.person_top_bar);
+        personTopBar = topBarView.findViewById(R.id.topBar);
+        personTopBar.setTitle("个人信息");
+        personTopBar.setBackgroundColor(Color.parseColor("#359BFF"));
+        personTopBar.addLeftImageButton(R.drawable.person_back, R.id.right_new);
+        topBarView.findViewById(R.id.right_new).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.toMainFromPerson);
