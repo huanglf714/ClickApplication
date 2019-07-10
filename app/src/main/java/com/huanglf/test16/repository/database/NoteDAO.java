@@ -30,4 +30,7 @@ public interface NoteDAO {
 
     @Query("SELECT * FROM note")
     LiveData<List<Note>> loadAllNotes();
+
+    @Query("SELECT * FROM note where is_star = 1")
+    LiveData<List<Note>> loadStarNotes();
 }

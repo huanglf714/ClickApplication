@@ -124,4 +124,9 @@ public class NoteRepositoryImpl implements INoteRepository {
     public LiveData<List<Note>> loadAllNotes() {
         return noteDAO.loadAllNotes();
     }
+
+    @Override
+    public LiveData<List<Note>> loadStartNotes() {
+        return noteDAO.loadStarNotes();
+    }
 }

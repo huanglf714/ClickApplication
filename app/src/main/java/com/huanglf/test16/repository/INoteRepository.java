@@ -46,6 +46,13 @@ public interface INoteRepository {
     LiveData<List<Note>> loadAllNotes();
 
     /**
+     * 查询收藏的笔记
+     *
+     * @return
+     */
+    LiveData<List<Note>> loadStartNotes();
+
+    /**
      * 合并笔记
      *
      * @param notes

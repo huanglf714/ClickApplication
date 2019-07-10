@@ -41,6 +41,10 @@ public class NoteFragment extends Fragment {
     private ItemTouchHelperCallback itemTouchHelperCallback;
     private ItemTouchHelper itemTouchHelper;
     private NoteListViewModel noteListViewModel;
+    private boolean favorTag;
+    private boolean isFirst;
+    private final String ARG_IS_FAVOR;
+    private MyNoteRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -50,6 +54,9 @@ public class NoteFragment extends Fragment {
         super();
         itemTouchHelperCallback = new ItemTouchHelperCallback();
         itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+        favorTag = false;
+        isFirst = true;
+        ARG_IS_FAVOR = "is-favor";
     }
 
     // TODO: Customize parameter initialization
@@ -68,8 +75,8 @@ public class NoteFragment extends Fragment {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            favorTag = getArguments().getBoolean(ARG_IS_FAVOR);
         }
-
     }
 
     @Override
@@ -92,15 +99,23 @@ public class NoteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.e("JY", "onViewCreated: ----------------------");
         noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
-        noteListViewModel.getNotes();
-        noteListViewModel.getNoteList().observe(this, new Observer<List<Note>>() {
+        noteListViewModel.getNotes(favorTag);
+        noteListViewModel.getNoteList(favorTag).observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> list) {
                 Log.e("JY", "onChanged: ------------------------------" + list.size());
                 mNoteList = list;
-                recyclerView.setAdapter(new MyNoteRecyclerViewAdapter(mNoteList, mListener));
-                itemTouchHelper.attachToRecyclerView(recyclerView);
+                if (isFirst) {
+                    adapter = new MyNoteRecyclerViewAdapter(mNoteList, mListener);
+                    recyclerView.setAdapter(adapter);
+                    itemTouchHelper.attachToRecyclerView(recyclerView);
+                    isFirst = false;
+                } else {
+                    adapter.setmValues(mNoteList);
+                    adapter.notifyData();
+                }
             }
         });
     }
@@ -141,9 +156,10 @@ public class NoteFragment extends Fragment {
         /**
          * 监听列表项内容点击事件
          *
+         * @param v
          * @param note
          */
-        void onNoteListListener(Note note);
+        void onNoteListListener(View v, Note note);
 
         /**
          * 监听分享点击按钮
