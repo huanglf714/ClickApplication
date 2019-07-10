@@ -1,9 +1,12 @@
 package com.huanglf.test16.ui.jy;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.huanglf.test16.repository.INoteRepository;
 import com.huanglf.test16.repository.database.Note;
+import com.huanglf.test16.repository.impl.NoteRepository;
 
 import java.util.List;
 
@@ -13,27 +16,33 @@ import java.util.List;
  * description:
  */
 public class NoteListViewModel extends ViewModel {
-    private final MutableLiveData<List<Note>> noteList;
+    private LiveData<List<Note>> noteList;
+    private final INoteRepository noteRepository;
 
-    public NoteListViewModel(MutableLiveData<List<Note>> noteList) {
-        this.noteList = noteList;
+    public NoteListViewModel() {
+        this.noteRepository = NoteRepository.getInstance();
     }
 
     /**
      * 获取消息列表
      */
     public void getNotes() {
+        noteList = noteRepository.loadAllNotes();
     }
 
     /**
      * 更改收藏状态
      */
-    public void setFavor(boolean status) {
+    public void setFavor(Note note) {
+        noteRepository.addStar(note);
+    }
 
+    public void removeItem(Note note) {
+        noteRepository.deleteOneNote(note);
     }
 
 
-    public MutableLiveData getNoteList() {
+    public LiveData<List<Note>> getNoteList() {
         return noteList;
     }
 
