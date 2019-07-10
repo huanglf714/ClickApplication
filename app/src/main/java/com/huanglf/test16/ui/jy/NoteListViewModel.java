@@ -1,12 +1,11 @@
 package com.huanglf.test16.ui.jy;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.huanglf.test16.repository.INoteRepository;
 import com.huanglf.test16.repository.database.Note;
-import com.huanglf.test16.repository.impl.NoteRepository;
+import com.huanglf.test16.repository.impl.NoteRepositoryImpl;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class NoteListViewModel extends ViewModel {
     private final INoteRepository noteRepository;
 
     public NoteListViewModel() {
-        this.noteRepository = NoteRepository.getInstance();
+        this.noteRepository = NoteRepositoryImpl.getInstance();
     }
 
     /**

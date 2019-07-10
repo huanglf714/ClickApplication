@@ -19,42 +19,49 @@ public interface INoteRepository {
 
     /**
      * 更新笔记
+     *
      * @param note
      */
     void updateNote(Note note);
 
     /**
      * 删除单条笔记
+     *
      * @param note
      */
     void deleteOneNote(Note note);
 
     /**
      * 批量删除笔记
+     *
      * @param notes
      */
     void deleteNotes(Note[] notes);
 
     /**
      * 查询所有笔记
+     *
      * @return
      */
     LiveData<List<Note>> loadAllNotes();
 
     /**
      * 合并笔记
+     *
      * @param notes
      */
     void combineNotes(Note[] notes);
 
     /**
      * 加星收藏
+     *
      * @param note
      */
     void addStar(Note note);
 
     /**
      * 取消收藏
+     *
      * @param note
      */
     void cancelStar(Note note);

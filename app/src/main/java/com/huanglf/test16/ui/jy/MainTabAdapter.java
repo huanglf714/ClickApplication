@@ -52,16 +52,16 @@ public class MainTabAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 //        if (noteFragmentList.size() <= position) {
-            NoteFragment noteFragment = new NoteFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_COLUMN_COUNT, COLUMN_COUNT);
-            if (position == 1) {
-                args.putBoolean(ARG_IS_FAVOR, !IS_FAVOR);
-            } else {
-                args.putBoolean(ARG_IS_FAVOR, !IS_FAVOR);
-            }
-            noteFragment.setArguments(args);
-            noteFragmentList.add(noteFragment);
+        NoteFragment noteFragment = new NoteFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_COLUMN_COUNT, COLUMN_COUNT);
+        if (position == 1) {
+            args.putBoolean(ARG_IS_FAVOR, !IS_FAVOR);
+        } else {
+            args.putBoolean(ARG_IS_FAVOR, !IS_FAVOR);
+        }
+        noteFragment.setArguments(args);
+        noteFragmentList.add(noteFragment);
 //        }
         return noteFragment;
     }

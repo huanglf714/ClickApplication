@@ -36,7 +36,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentDetailNote extends Fragment {
-    private Button btnBack,btnSave = null;
+    private Button btnBack, btnSave = null;
     private ImageButton mIbBold;
     private ImageButton mIbItalic;
     private ImageButton mIbUnderline;
@@ -73,12 +73,12 @@ public class FragmentDetailNote extends Fragment {
                 String date = df.format(new Date());
                 //后面修改，通过接收数据来判断是否为新建笔记
                 int id = 0;
-                if(id == 0) {
-                    saveViewModel.saveNote(title,content,date);
-                }else {
-                    saveViewModel.saveNote(id,title,content,date);
+                if (id == 0) {
+                    saveViewModel.saveNote(title, content, date);
+                } else {
+                    saveViewModel.saveNote(id, title, content, date);
                 }
-                Log.e("myLog","has save the note");
+                Log.e("myLog", "has save the note");
                 Navigation.findNavController(view)
                         .navigate(R.id.action_fragmentDetailNote_to_testFragment);
             }
@@ -94,51 +94,51 @@ public class FragmentDetailNote extends Fragment {
         /**
          * set Click Listener for every font style change button
          */
-        mIbBold.setOnClickListener(new View.OnClickListener(){
+        mIbBold.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 selectBold();
             }
         });
-        mIbItalic.setOnClickListener(new View.OnClickListener(){
+        mIbItalic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 selectItalic();
             }
         });
-        mIbUnderline.setOnClickListener(new View.OnClickListener(){
+        mIbUnderline.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 selectUnderline();
             }
         });
-        mIbStrikethrough.setOnClickListener(new View.OnClickListener(){
+        mIbStrikethrough.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 selectStrikethrough();
             }
         });
-        mIbLink.setOnClickListener(new View.OnClickListener(){
+        mIbLink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 onClickLink();
             }
         });
-        mIbBullet.setOnClickListener(new View.OnClickListener(){
+        mIbBullet.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 onClickBullet();
             }
         });
-        mIbClear.setOnClickListener(new View.OnClickListener(){
+        mIbClear.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 onClickClear();
             }
         });
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         btnBack = view.findViewById(R.id.back);
         btnSave = view.findViewById(R.id.save);
         mIbBold = view.findViewById(R.id.ib_bold);
@@ -165,6 +165,7 @@ public class FragmentDetailNote extends Fragment {
             }
         });
     }
+
     public void selectBold() {
         if (mIbBold.isSelected()) {
             mIbBold.setSelected(false);

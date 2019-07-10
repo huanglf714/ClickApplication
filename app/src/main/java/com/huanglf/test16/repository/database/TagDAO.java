@@ -10,24 +10,20 @@ import androidx.room.Update;
 import java.util.List;
 
 /**
- * Date: 2019/7/8
- * Author: huanglf
- * description:
+ * @author chenshanshan
+ * @time 2019/7/10 10:18
  */
 @Dao
-public interface NoteDAO {
+public interface TagDAO {
     @Insert
-    void insertNote(Note note);
+    void insertNewTag(Tag tag);
 
     @Update
-    void updateNote(Note note);
+    void updateTag(Tag tag);
 
     @Delete
-    void deleteOneNote(Note note);
+    void deleteOneTag(Tag tag);
 
-    @Delete
-    void deleteNotes(Note[] notes);
-
-    @Query("SELECT * FROM note")
-    LiveData<List<Note>> loadAllNotes();
+    @Query("select * from tag")
+    LiveData<List<Tag>> queryAllTags();
 }

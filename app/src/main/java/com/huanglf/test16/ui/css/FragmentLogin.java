@@ -65,10 +65,10 @@ public class FragmentLogin extends Fragment {
         registerView = view.findViewById(R.id.register);
         forgetPwdView = view.findViewById(R.id.forgetPwd);
         rememberPwd = view.findViewById(R.id.rememberPwd);
-        boolean isRemember = sharedPreferences.getBoolean("remember_pwd",false);
-        if (isRemember){
-            String accountStr = sharedPreferences.getString("account","");
-            String passwordStr = sharedPreferences.getString("password","");
+        boolean isRemember = sharedPreferences.getBoolean("remember_pwd", false);
+        if (isRemember) {
+            String accountStr = sharedPreferences.getString("account", "");
+            String passwordStr = sharedPreferences.getString("password", "");
             account.setText(accountStr);
             password.setText(passwordStr);
             rememberPwd.setChecked(true);
@@ -77,11 +77,11 @@ public class FragmentLogin extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                if(rememberPwd.isChecked()){
-                    sharedPreferences.edit().putBoolean("remember_pwd",true).commit();
+                if (rememberPwd.isChecked()) {
+                    sharedPreferences.edit().putBoolean("remember_pwd", true).commit();
                 }
-                sharedPreferences.edit().putString("account",account.getText().toString()).commit();
-                sharedPreferences.edit().putString("password",password.getText().toString()).commit();
+                sharedPreferences.edit().putString("account", account.getText().toString()).commit();
+                sharedPreferences.edit().putString("password", password.getText().toString()).commit();
                 loginViewModel.loginWithPassword(
                         account.getText().toString(), password.getText().toString());
             }
@@ -93,8 +93,8 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("key","注册");
-                Navigation.findNavController(v).navigate(R.id.toRegisterFromLogin,bundle);
+                bundle.putString("key", "注册");
+                Navigation.findNavController(v).navigate(R.id.toRegisterFromLogin, bundle);
             }
         });
 
@@ -103,8 +103,8 @@ public class FragmentLogin extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("key","修改密码");
-                Navigation.findNavController(v).navigate(R.id.toRegisterFromLogin,bundle);
+                bundle.putString("key", "修改密码");
+                Navigation.findNavController(v).navigate(R.id.toRegisterFromLogin, bundle);
             }
         });
 
@@ -113,7 +113,7 @@ public class FragmentLogin extends Fragment {
         loginViewModel.getIsLogin().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                sharedPreferences.edit().putBoolean("isLogin",true).commit();
+                sharedPreferences.edit().putBoolean("isLogin", true).commit();
                 Toast.makeText(getContext(), MessageEnum.LOGIN_SUCCESS.getDesc(), Toast.LENGTH_LONG);
                 Navigation.findNavController(getView()).navigate(R.id.toMainFromLogin);
             }

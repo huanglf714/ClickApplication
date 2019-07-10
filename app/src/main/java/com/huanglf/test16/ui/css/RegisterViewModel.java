@@ -14,20 +14,20 @@ public class RegisterViewModel extends ViewModel {
     private IUserRepository userRepository = UserRepositoryImpl.getInstance();
 
     //发送验证码
-    public void sendConfirmCode(String account){
+    public void sendConfirmCode(String account) {
         userRepository.sendConfirmCode(account);
     }
 
     //注册用户
-    public void register(final String account,final String password,
-                         final String repeatPwd,String confirmCode){
-        userRepository.register(account,confirmCode,password,repeatPwd);
+    public void register(final String account, final String password,
+                         final String repeatPwd, String confirmCode) {
+        userRepository.register(account, confirmCode, password, repeatPwd);
     }
 
     //更改密码
-    public void alterPwd(final String account,final String password,
-                         final String repeatPwd,String confirmCode){
-        userRepository.alterPwd(account,confirmCode,password,repeatPwd);
+    public void alterPwd(final String account, final String password,
+                         final String repeatPwd, String confirmCode) {
+        userRepository.alterPwd(account, confirmCode, password, repeatPwd);
     }
 }
 

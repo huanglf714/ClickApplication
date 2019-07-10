@@ -73,15 +73,15 @@ public class FragmentRegister extends Fragment {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                if("注册".equals(value)){
-                    Log.e("myLog","注册");
+                if ("注册".equals(value)) {
+                    Log.e("myLog", "注册");
                     registerViewModel.register(account.getText().toString(),
-                            password.getText().toString(),repeatPassword.getText().toString(),
+                            password.getText().toString(), repeatPassword.getText().toString(),
                             confirmCode.getText().toString());
-                }else {
-                    Log.e("myLog","修改密码");
+                } else {
+                    Log.e("myLog", "修改密码");
                     registerViewModel.alterPwd(account.getText().toString(),
-                            password.getText().toString(),repeatPassword.getText().toString(),
+                            password.getText().toString(), repeatPassword.getText().toString(),
                             confirmCode.getText().toString());
                 }
 
@@ -92,7 +92,7 @@ public class FragmentRegister extends Fragment {
         userRepository.getRegisterUserData().observe(this, new Observer<BmobUser>() {
             @Override
             public void onChanged(BmobUser user) {
-                Toast.makeText(getContext(),value+"成功",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), value + "成功", Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getView()).navigate(R.id.toLoginFromRegister);
             }
         });

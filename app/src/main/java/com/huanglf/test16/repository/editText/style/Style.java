@@ -14,10 +14,11 @@ public abstract class Style {
 
     /**
      * 改变选中文本样式
-     * @param text 选中的可编辑文本
+     *
+     * @param text  选中的可编辑文本
      * @param start 开始索引
-     * @param end 结束索引
-     * @param rule 规则
+     * @param end   结束索引
+     * @param rule  规则
      * @return 若设置样式返回true, 清除样式返回false
      */
     public boolean format(Editable text, int start, int end, Rule rule) {
@@ -38,25 +39,28 @@ public abstract class Style {
 
     /**
      * 设置样式
-     * @param text 可编辑文本
+     *
+     * @param text  可编辑文本
      * @param start 开始索引
-     * @param end 结束索引
+     * @param end   结束索引
      */
     public abstract void set(Editable text, int start, int end);
 
     /**
      * 移除样式
-     * @param text 可编辑文本
+     *
+     * @param text  可编辑文本
      * @param start 开始索引
-     * @param end 结束索引
+     * @param end   结束索引
      */
-    public abstract void remove(Editable text,int start, int end);
+    public abstract void remove(Editable text, int start, int end);
 
     /**
      * 选中文本是否已设置样式
-     * @param text 可编辑文本
+     *
+     * @param text  可编辑文本
      * @param start 开始索引
-     * @param end 结束索引
+     * @param end   结束索引
      * @return 若选中的全部文本已设置该样式, 返回true; 反之, 返回false.
      */
     public abstract boolean isSetting(Editable text, int start, int end);

@@ -31,9 +31,9 @@ public class LaunchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(sharedPreferences.getBoolean("isLogin",false)){
+        if (sharedPreferences.getBoolean("isLogin", false)) {
             Navigation.findNavController(getView()).navigate(R.id.actionLaunchMain);
-        }else{
+        } else {
             Navigation.findNavController(getView()).navigate(R.id.actionLaunchLogin);
         }
     }

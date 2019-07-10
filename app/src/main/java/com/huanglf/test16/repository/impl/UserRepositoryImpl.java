@@ -45,10 +45,10 @@ public class UserRepositoryImpl implements IUserRepository {
             @Override
             public void done(BmobUser s, BmobException e) {
                 if (e != null) {
-                    Log.e("myLog",e.toString());
+                    Log.e("myLog", e.toString());
                     MessageUtil.error("用户名或密码错误");
                 } else {
-                    Log.e("myLog","*******************************");
+                    Log.e("myLog", "*******************************");
                     loginUserData.postValue("登录成功");
                 }
             }
@@ -176,8 +176,7 @@ public class UserRepositoryImpl implements IUserRepository {
                 public void done(BmobException e) {
                     if (e != null) {
                         MessageUtil.error("修改密码失败");
-                    }
-                    else {
+                    } else {
                         changePasswordLiveData.postValue("修改密码成功");
                     }
                 }
