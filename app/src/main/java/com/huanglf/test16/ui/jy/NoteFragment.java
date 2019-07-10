@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -49,6 +47,7 @@ public class NoteFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public NoteFragment() {
+        super();
         itemTouchHelperCallback = new ItemTouchHelperCallback();
         itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
     }
@@ -71,7 +70,6 @@ public class NoteFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        Log.e("JY", "onCreate: -------------------------oncreste");
     }
 
     @Override
@@ -95,10 +93,11 @@ public class NoteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
-        noteListViewModel.getNoteList();
+        noteListViewModel.getNotes();
         noteListViewModel.getNoteList().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> list) {
+                Log.e("JY", "onChanged: ------------------------------"+list.size());
                 mNoteList = list;
                 recyclerView.setAdapter(new MyNoteRecyclerViewAdapter(mNoteList, mListener));
                 itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -121,6 +120,10 @@ public class NoteFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
     }
 
     /**
