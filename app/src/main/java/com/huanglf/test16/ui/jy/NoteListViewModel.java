@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.huanglf.test16.repository.INoteRepository;
 import com.huanglf.test16.repository.database.Note;
-import com.huanglf.test16.repository.impl.NoteRepository;
+import com.huanglf.test16.repository.impl.NoteRepositoryImpl;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class NoteListViewModel extends ViewModel {
     private final INoteRepository mNoteRepository;
 
     public NoteListViewModel() {
-        this.mNoteRepository = NoteRepository.getInstance();
+        this.mNoteRepository = NoteRepositoryImpl.getInstance();
     }
 
     /**

@@ -12,13 +12,16 @@ import android.widget.Toast;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.database.Note;
+import com.huanglf.test16.repository.database.Tag;
+import com.huanglf.test16.ui.css.TagFragment;
 import com.huanglf.test16.ui.jy.NoteFragment;
 import com.huanglf.test16.ui.jy.NoteListViewModel;
 import com.huanglf.test16.util.MessageUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 
-public class MainActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements
+        NoteFragment.OnListFragmentInteractionListener, TagFragment.OnListFragmentInteractionListener {
     private NoteListViewModel noteListViewModel;
     private final String ARG_DATA = "note_data";
     @Override
@@ -58,4 +61,9 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.OnLi
     public void onDeleteListener(Note note) {
         noteListViewModel.removeItem(note);
     }
+
+    @Override
+    public void onListFragmentInteraction(Tag item) {
+    }
+
 }

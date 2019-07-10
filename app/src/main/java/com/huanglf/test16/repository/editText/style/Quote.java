@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Quote extends Style {
 
     private int mColor;
@@ -127,10 +126,10 @@ public class Quote extends Style {
      * 3. selectStart < lineStart && selectEnd < lineEnd <br>
      * 4. selectStart < lineStart && selectEnd > lineEnd <br>
      *
-     * @param lineStart 当前行首字符索引
-     * @param lineEnd 当前行尾字符索引
+     * @param lineStart   当前行首字符索引
+     * @param lineEnd     当前行尾字符索引
      * @param selectStart 选择文本首字符索引
-     * @param selectEnd 选择文本 尾字符索引
+     * @param selectEnd   选择文本 尾字符索引
      * @return 满足上面四种情况返回true; 否则, 返回false
      */
     private boolean isSelected(int lineStart, int lineEnd, int selectStart, int selectEnd) {

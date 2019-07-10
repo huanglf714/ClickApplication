@@ -4,7 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+<<<<<<< HEAD
+import lombok.NonNull;
+=======
 import java.io.Serializable;
+>>>>>>> f98c9c2de936a693007c822b2a00855111dd25df
 
 
 /**
@@ -30,7 +34,17 @@ public class Note implements Serializable {
     @ColumnInfo(name = "is_star")
     private Boolean isStar = false;
 
+<<<<<<< HEAD
+    @ColumnInfo(name = "tag_id")
+    @NonNull
+    private int tagId;
+
+    public Note() {
+        this.isStar = false;
+    }
+=======
     public Note() { }
+>>>>>>> f98c9c2de936a693007c822b2a00855111dd25df
 
     public Note(String title, String content, String updateDate) {
         this.title = title;
@@ -97,6 +111,14 @@ public class Note implements Serializable {
 
     public void setStar(Boolean star) {
         isStar = star;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
     @Override

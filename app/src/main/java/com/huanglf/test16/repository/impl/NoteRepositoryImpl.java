@@ -1,7 +1,5 @@
 package com.huanglf.test16.repository.impl;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 
 import com.huanglf.test16.repository.INoteRepository;
@@ -18,18 +16,18 @@ import java.util.List;
  * Author: huanglf
  * description:
  */
-public class NoteRepository implements INoteRepository {
+public class NoteRepositoryImpl implements INoteRepository {
     private static NoteDAO noteDAO;
-    private static NoteRepository noteRepository;
+    private static NoteRepositoryImpl noteRepositoryImpl;
 
-    public static NoteRepository getInstance() {
-        if (noteRepository == null) {
-            noteRepository = new NoteRepository();
+    public static NoteRepositoryImpl getInstance() {
+        if (noteRepositoryImpl == null) {
+            noteRepositoryImpl = new NoteRepositoryImpl();
         }
-        return noteRepository;
+        return noteRepositoryImpl;
     }
 
-    private NoteRepository() {
+    private NoteRepositoryImpl() {
         noteDAO = AppDatabase.getInstance().getNoteDAO();
     }
 

@@ -1,4 +1,4 @@
-package com.huanglf.test16.ui.jy;
+package com.huanglf.test16.ui.css;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,8 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.huanglf.test16.R;
-import com.huanglf.test16.repository.database.Note;
+import com.huanglf.test16.repository.database.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,40 +30,29 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class NoteFragment extends Fragment {
+public class TagFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private List<Note> mNoteList;
+    private TagListViewModel tagListViewModel;
+    private List<Tag> tagList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ItemTouchHelperCallback itemTouchHelperCallback;
     private ItemTouchHelper itemTouchHelper;
-    private NoteListViewModel noteListViewModel;
-    private boolean favorTag;
-    private boolean isFirst;
-    private final String ARG_IS_FAVOR;
-    private MyNoteRecyclerViewAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public NoteFragment() {
-        super();
-        itemTouchHelperCallback = new ItemTouchHelperCallback();
-        itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
-        favorTag = false;
-        isFirst = true;
-        ARG_IS_FAVOR = "is-favor";
+    public TagFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static NoteFragment newInstance(int columnCount) {
-        NoteFragment fragment = new NoteFragment();
+    public static TagFragment newInstance(int columnCount) {
+        TagFragment fragment = new TagFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -75,14 +65,13 @@ public class NoteFragment extends Fragment {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-            favorTag = getArguments().getBoolean(ARG_IS_FAVOR);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_note_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_tag_list, container, false);
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -99,23 +88,25 @@ public class NoteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e("JY", "onViewCreated: ----------------------");
-        noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
-        noteListViewModel.getNotes(favorTag);
-        noteListViewModel.getNoteList(favorTag).observe(this, new Observer<List<Note>>() {
+        tagListViewModel = ViewModelProviders.of(this).get(TagListViewModel.class);
+        tagListViewModel.getTagList().observe(this, new Observer<List<Tag>>() {
             @Override
-            public void onChanged(List<Note> list) {
-                Log.e("JY", "onChanged: ------------------------------" + list.size());
-                mNoteList = list;
-                if (isFirst) {
-                    adapter = new MyNoteRecyclerViewAdapter(mNoteList, mListener);
-                    recyclerView.setAdapter(adapter);
-                    itemTouchHelper.attachToRecyclerView(recyclerView);
-                    isFirst = false;
-                } else {
-                    adapter.setmValues(mNoteList);
-                    adapter.notifyData();
-                }
+            public void onChanged(List<Tag> list) {
+                Log.e("CSS", "onChanged: ------------------------------" + list.size());
+                tagList = list;
+                tagList.add(new Tag(1, "生活", 0, R.drawable.tag));
+                tagList.add(new Tag(2, "工作", 0, R.drawable.tag1));
+                tagList.add(new Tag(3, "学习", 0, R.drawable.tag2));
+                tagList.add(new Tag(4, "娱乐", 0, R.drawable.tag3));
+                tagList.add(new Tag(5, "购物", 0, R.drawable.tag4));
+                tagList.add(new Tag(6, "吃喝", 0, R.drawable.tag5));
+                tagList.add(new Tag(1, "生活", 0, R.drawable.tag));
+                tagList.add(new Tag(2, "工作", 0, R.drawable.tag1));
+                tagList.add(new Tag(3, "学习", 0, R.drawable.tag2));
+                tagList.add(new Tag(4, "娱乐", 0, R.drawable.tag3));
+                tagList.add(new Tag(5, "购物", 0, R.drawable.tag4));
+                tagList.add(new Tag(6, "吃喝", 0, R.drawable.tag5));
+                recyclerView.setAdapter(new MyTagRecyclerViewAdapter(tagList, mListener));
             }
         });
     }
@@ -137,10 +128,6 @@ public class NoteFragment extends Fragment {
         mListener = null;
     }
 
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -152,34 +139,7 @@ public class NoteFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-
-        /**
-         * 监听列表项内容点击事件
-         *
-         * @param v
-         * @param note
-         */
-        void onNoteListListener(View v, Note note);
-
-        /**
-         * 监听分享点击按钮
-         *
-         * @param note
-         */
-        void onShareListener(Note note);
-
-        /**
-         * 监听收藏点击按钮
-         *
-         * @param note
-         */
-        void onFavorListener(Note note);
-
-        /**
-         * 监听删除点击按钮
-         *
-         * @param note
-         */
-        void onDeleteListener(Note note);
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(Tag item);
     }
 }
