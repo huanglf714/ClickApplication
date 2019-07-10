@@ -7,10 +7,6 @@ import android.text.style.URLSpan;
 import com.huanglf.test16.repository.editText.span.ExtendURLSpan;
 
 
-/**
- * Created by Leo on 2017/3/17.
- */
-
 public class Link extends Style {
 
     private int mColor;

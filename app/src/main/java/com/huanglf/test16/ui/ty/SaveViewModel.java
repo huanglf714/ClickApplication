@@ -32,7 +32,6 @@ public class SaveViewModel extends ViewModel {
         Note note = new Note(title, content, date);
         note.setId(id);
         noteRepository.updateNote(note);
-
     }
 
     //新建笔记

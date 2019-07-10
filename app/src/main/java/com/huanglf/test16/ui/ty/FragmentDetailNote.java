@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.editText.ExtendEditText;
@@ -36,7 +37,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentDetailNote extends Fragment {
-    private Button btnBack, btnSave = null;
+    private ImageView btnBack,btnSave = null;
+    private ImageButton increase,decrease;
     private ImageButton mIbBold;
     private ImageButton mIbItalic;
     private ImageButton mIbUnderline;
@@ -84,13 +86,23 @@ public class FragmentDetailNote extends Fragment {
             }
         });
 
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        /**
+         * set Click Listener for every font style change button
+         */
+        increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.toMainFromDetail);
+                editText.increaseSize();
             }
         });
+
+        decrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.decreaseSize();
+            }
+        });
+
         /**
          * set Click Listener for every font style change button
          */
@@ -138,9 +150,11 @@ public class FragmentDetailNote extends Fragment {
         });
     }
 
-    private void initView(View view) {
-        btnBack = view.findViewById(R.id.back);
-        btnSave = view.findViewById(R.id.save);
+    private void initView(View view){
+        btnBack = view.findViewById(R.id.left_user);
+        btnSave = view.findViewById(R.id.right_new);
+        increase = view.findViewById(R.id.increase);
+        decrease = view.findViewById(R.id.decrease);
         mIbBold = view.findViewById(R.id.ib_bold);
         mIbBullet = view.findViewById(R.id.ib_bullet);
         mIbClear = view.findViewById(R.id.ib_clear);
@@ -149,6 +163,7 @@ public class FragmentDetailNote extends Fragment {
         mIbStrikethrough = view.findViewById(R.id.ib_strikethrough);
         mIbUnderline = view.findViewById(R.id.ib_underline);
         editText = view.findViewById(R.id.extend_edit_text);
+        editText.requestFocus();
     }
 
     private void setupExtendEditText() {
