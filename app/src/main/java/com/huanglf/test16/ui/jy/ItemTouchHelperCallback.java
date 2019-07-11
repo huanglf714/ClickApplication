@@ -1,11 +1,8 @@
 package com.huanglf.test16.ui.jy;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 

@@ -1,6 +1,7 @@
 package com.huanglf.test16.repository.database;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.huanglf.test16.R;
@@ -63,7 +64,11 @@ public class Tag {
         this.color = color;
     }
 
-    public Tag(int id, String name, int number, int image) {
+    public Tag() {
+    }
+
+    @Ignore
+    public Tag(@NonNull int id, String name, @NonNull int number, @NonNull int image) {
         this.id = id;
         this.name = name;
         this.number = number;

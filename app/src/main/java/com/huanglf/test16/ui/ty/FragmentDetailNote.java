@@ -1,19 +1,15 @@
 package com.huanglf.test16.ui.ty;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.OnLifecycleEvent;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import android.text.Html;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +22,6 @@ import com.huanglf.test16.repository.editText.ExtendEditText;
 import com.huanglf.test16.repository.editText.ExtendEditTextListener;
 import com.huanglf.test16.repository.editText.Rule;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
