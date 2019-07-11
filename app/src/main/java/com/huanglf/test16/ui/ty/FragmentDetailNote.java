@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +30,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentDetailNote extends Fragment {
-    private Button btnBack,btnSave = null;
+    private ImageView btnBack,btnSave = null;
+    private ImageButton increase,decrease;
     private ImageButton mIbBold;
     private ImageButton mIbItalic;
     private ImageButton mIbUnderline;
@@ -66,71 +68,83 @@ public class FragmentDetailNote extends Fragment {
                 String date = df.format(new Date());
                 //后面修改，通过接收数据来判断是否为新建笔记
                 int id = 0;
-                if(id == 0) {
-                    saveViewModel.saveNote(title,content,date);
-                }else {
-                    saveViewModel.saveNote(id,title,content,date);
+                if (id == 0) {
+                    saveViewModel.saveNote(title, content, date);
+                } else {
+                    saveViewModel.saveNote(id, title, content, date);
                 }
             }
         });
 
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.toMainFromDetail);
-            }
-        });
         /**
          * set Click Listener for every font style change button
          */
-        mIbBold.setOnClickListener(new View.OnClickListener(){
+        increase.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
+                editText.increaseSize();
+            }
+        });
+
+        decrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.decreaseSize();
+            }
+        });
+
+        /**
+         * set Click Listener for every font style change button
+         */
+        mIbBold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 selectBold();
             }
         });
-        mIbItalic.setOnClickListener(new View.OnClickListener(){
+        mIbItalic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 selectItalic();
             }
         });
-        mIbUnderline.setOnClickListener(new View.OnClickListener(){
+        mIbUnderline.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 selectUnderline();
             }
         });
-        mIbStrikethrough.setOnClickListener(new View.OnClickListener(){
+        mIbStrikethrough.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 selectStrikethrough();
             }
         });
-        mIbLink.setOnClickListener(new View.OnClickListener(){
+        mIbLink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 onClickLink();
             }
         });
-        mIbBullet.setOnClickListener(new View.OnClickListener(){
+        mIbBullet.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 onClickBullet();
             }
         });
-        mIbClear.setOnClickListener(new View.OnClickListener(){
+        mIbClear.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 onClickClear();
             }
         });
     }
 
     private void initView(View view){
-        btnBack = view.findViewById(R.id.back);
-        btnSave = view.findViewById(R.id.save);
+        btnBack = view.findViewById(R.id.left_user);
+        btnSave = view.findViewById(R.id.right_new);
+        increase = view.findViewById(R.id.increase);
+        decrease = view.findViewById(R.id.decrease);
         mIbBold = view.findViewById(R.id.ib_bold);
         mIbBullet = view.findViewById(R.id.ib_bullet);
         mIbClear = view.findViewById(R.id.ib_clear);
@@ -139,6 +153,7 @@ public class FragmentDetailNote extends Fragment {
         mIbStrikethrough = view.findViewById(R.id.ib_strikethrough);
         mIbUnderline = view.findViewById(R.id.ib_underline);
         editText = view.findViewById(R.id.extend_edit_text);
+        editText.requestFocus();
     }
 
     private void setupExtendEditText() {
@@ -155,6 +170,7 @@ public class FragmentDetailNote extends Fragment {
             }
         });
     }
+
     public void selectBold() {
         if (mIbBold.isSelected()) {
             mIbBold.setSelected(false);

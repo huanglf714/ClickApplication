@@ -9,27 +9,34 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.database.Note;
-import com.huanglf.test16.repository.impl.NoteRepository;
+import android.view.View;
+
+import com.huanglf.test16.repository.database.Tag;
+import com.huanglf.test16.repository.impl.NoteRepositoryImpl;
+import com.huanglf.test16.ui.css.TagFragment;
 import com.huanglf.test16.ui.jy.NoteFragment;
 import com.huanglf.test16.ui.jy.NoteListViewModel;
 import com.huanglf.test16.util.MessageUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 
-public class MainActivity extends AppCompatActivity implements NoteFragment.OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements
+        NoteFragment.OnListFragmentInteractionListener, TagFragment.OnListFragmentInteractionListener {
     private NoteListViewModel noteListViewModel;
-    NoteRepository noteRepository = null;
+    NoteRepositoryImpl noteRepository = null;
 
+    private final String ARG_DATA = "note_data";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         QMUIStatusBarHelper.translucent(this);
         noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
-        noteRepository = NoteRepository.getInstance();
+        noteRepository = NoteRepositoryImpl.getInstance();
         //全局监听异常
         MessageUtil.getExceptionLiveData().observe(this, new Observer<String>() {
             @Override
@@ -55,7 +62,10 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.OnLi
     }
 
     @Override
-    public void onNoteListListener(Note note) {
+    public void onNoteListListener(View v, Note note) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_DATA,note);
+        Navigation.findNavController(v).navigate(R.id.toDetailFromMain,args);
     }
 
     @Override
@@ -72,4 +82,9 @@ public class MainActivity extends AppCompatActivity implements NoteFragment.OnLi
     public void onDeleteListener(Note note) {
         noteListViewModel.removeItem(note);
     }
+
+    @Override
+    public void onListFragmentInteraction(Tag item) {
+    }
+
 }

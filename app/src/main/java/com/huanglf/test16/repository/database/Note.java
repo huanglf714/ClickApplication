@@ -4,6 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
+import lombok.NonNull;
+
 
 /**
  * Date: 2019/7/3
@@ -11,7 +15,7 @@ import androidx.room.PrimaryKey;
  * description:
  */
 @Entity
-public class Note {
+public class Note implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -26,7 +30,11 @@ public class Note {
     private String updateDate;
 
     @ColumnInfo(name = "is_star")
-    private Boolean isStar;
+    private Boolean isStar = false;
+
+    @ColumnInfo(name = "tag_id")
+    @NonNull
+    private int tagId;
 
     public Note() { }
 
@@ -79,6 +87,14 @@ public class Note {
 
     public void setStar(Boolean star) {
         isStar = star;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
     }
 
     @Override

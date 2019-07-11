@@ -1,12 +1,10 @@
-package com.huanglf.test16.ui.jy;
+package com.huanglf.test16.ui.ty;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,32 +28,24 @@ public class TopBarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_top_bar, container, false);
         mTopBar = view.findViewById(R.id.topBar);
         initTopBar();
+        ImageButton back = view.findViewById(R.id.left_user);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.toMainFromDetail);
+            }
+        });
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ImageView imageView = view.findViewById(R.id.left_user);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(getView()).navigate(R.id.toPersonFromMain);
-            }
-        });
-        ImageView imageViewRight = view.findViewById(R.id.right_new);
-        imageViewRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.toDetailFromMain);
-            }
-        });
     }
 
     private void initTopBar() {
-        mTopBar.setTitle("我的剪切记录");
-        mTopBar.addLeftImageButton(R.drawable.user_round, R.id.left_user);
-        mTopBar.addRightImageButton(R.drawable.plus, R.id.right_new);
-        mTopBar.setBackgroundColor(Color.parseColor("#359BFF"));
+        mTopBar.setTitle("编辑剪切板");
+        mTopBar.addLeftImageButton(R.drawable.back, R.id.left_user);
+        mTopBar.addRightImageButton(R.drawable.save, R.id.right_new);
     }
 }

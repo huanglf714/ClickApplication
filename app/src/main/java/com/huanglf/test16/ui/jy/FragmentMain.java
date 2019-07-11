@@ -83,7 +83,7 @@ public class FragmentMain extends Fragment {
     }
 
     private void initViewPager() {
-        mViewPager.setAdapter(new MainTabAdapter(getFragmentManager(), 0));
+        mViewPager.setAdapter(new MainTabAdapter(getActivity().getSupportFragmentManager(), 0));
         mViewPager.setSwipeable(false);
         mMainTabSegment.setupWithViewPager(mViewPager, false);
     }
