@@ -6,8 +6,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +19,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.huanglf.test16.R;
+import com.huanglf.test16.repository.database.Tag;
 import com.huanglf.test16.repository.impl.UserRepositoryImpl;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout;
 
+
+import java.util.List;
+
+import cn.bmob.v3.BmobUser;
 
 import static com.huanglf.test16.ClickApplication.sharedPreferences;
 

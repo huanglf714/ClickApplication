@@ -8,11 +8,11 @@ import java.util.concurrent.Executors;
  * Author: huanglf
  * description:
  */
-public class AppExecutor{
+public class AppExecutor {
     private Executor mIOExecutor;
     private static AppExecutor instance = new AppExecutor();
 
-    public static AppExecutor getInstance(){
+    public static AppExecutor getInstance() {
         return instance;
     }
 

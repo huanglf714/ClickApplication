@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class Bullet extends Style {
 
     private int mColor;
@@ -124,16 +123,16 @@ public class Bullet extends Style {
     /**
      * 四种情况代表当前行被选择
      * <ul>
-     *     <li>selectStart > lineStart && selectEnd < lineEnd</li>
-     *     <li>selectStart > lineStart && selectEnd > lineEnd</li>
-     *     <li>selectStart < lineStart && selectEnd < lineEnd</li>
-     *     <li>selectStart < lineStart && selectEnd > lineEnd</li>
+     * <li>selectStart > lineStart && selectEnd < lineEnd</li>
+     * <li>selectStart > lineStart && selectEnd > lineEnd</li>
+     * <li>selectStart < lineStart && selectEnd < lineEnd</li>
+     * <li>selectStart < lineStart && selectEnd > lineEnd</li>
      * </ul>
      *
-     * @param lineStart 当前行首字符索引
-     * @param lineEnd 当前行尾字符索引
+     * @param lineStart   当前行首字符索引
+     * @param lineEnd     当前行尾字符索引
      * @param selectStart 选择文本首字符索引
-     * @param selectEnd 选择文本尾字符索引
+     * @param selectEnd   选择文本尾字符索引
      * @return 满足上面四种情况返回true; 否则, 返回false
      */
     private boolean isValid(int lineStart, int lineEnd, int selectStart, int selectEnd) {

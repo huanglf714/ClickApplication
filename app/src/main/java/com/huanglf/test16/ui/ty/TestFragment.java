@@ -48,10 +48,10 @@ public class TestFragment extends Fragment {
         testViewModel.loadAllUsers().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> notes) {
-                Log.e("myLog","visit the note list");
-                for (Note note:notes
-                     ) {
-                    Log.e("myLog",note.toString());
+                Log.e("myLog", "visit the note list");
+                for (Note note : notes
+                ) {
+                    Log.e("myLog", note.toString());
                     Spanned spanned = Html.fromHtml(note.getContent());
                     ExtendEditText editText = view.findViewById(R.id.test_edit);
                     editText.setText(spanned);

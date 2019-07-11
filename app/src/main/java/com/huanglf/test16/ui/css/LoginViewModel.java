@@ -19,6 +19,7 @@ import cn.bmob.v3.BmobUser;
 public class LoginViewModel extends ViewModel {
     private IUserRepository userRepository = UserRepositoryImpl.getInstance();
     private MutableLiveData<String> userLiveData = new MutableLiveData<>();
+
     /**
      * 手机账户+密码登录
      */

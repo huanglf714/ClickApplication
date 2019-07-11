@@ -5,10 +5,10 @@
     >
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:fitsSystemWindows="true" />
+    android:id="@+id/topBar"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:fitsSystemWindows="true" />
 
     <ImageButton
         android:id="@+id/left_user"
