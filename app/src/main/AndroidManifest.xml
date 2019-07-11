@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/QMUITheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:replace="android:name">
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,39 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <!-- 调用新浪原生SDK，需要注册的回调activity -->
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="tencent100371282" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="com.huanglf.test16.wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.huanglf.test16.BmobContentProvider" />
