@@ -7,6 +7,11 @@
     tools:context=".ui.css.FragmentPersonInfo">
 
 
+    <include
+        android:id="@+id/person_top_bar"
+        layout="@layout/fragment_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

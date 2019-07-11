@@ -35,7 +35,6 @@ public class MainTabAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        Log.e("JY", "getItem: ----------------------------" + position);
         NoteFragment noteFragment = new NoteFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, COLUMN_COUNT);
