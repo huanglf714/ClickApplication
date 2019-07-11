@@ -50,17 +50,17 @@ public class MainActivity extends AppCompatActivity implements
         //全局监听剪切板
         final ClipboardManager clipboard = (ClipboardManager)getApplicationContext().getSystemService(getApplicationContext().CLIPBOARD_SERVICE);
         clipboard.addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
-            @Override
-            public void onPrimaryClipChanged() {
-                ClipData data = clipboard.getPrimaryClip();
-                ClipData.Item item = data.getItemAt(0);
-                String content = item.getText().toString();
-                Log.e("myLog",content+"--------------------");
-                Note note = new Note();
-                note.setTitle(content.substring(0,(content.length()<8?content.length()-1:7)));
-                note.setContent(content);
-                noteRepository.insertNote(note);
-            }
+                @Override
+                public void onPrimaryClipChanged() {
+                    ClipData data = clipboard.getPrimaryClip();
+                    ClipData.Item item = data.getItemAt(0);
+                    String content = item.getText().toString();
+                    Log.e("myLog",content+"--------------------");
+                    Note note = new Note();
+                    note.setTitle(content.substring(0,(content.length()<8?content.length()-1:7)));
+                    note.setContent(content);
+                    noteRepository.insertNote(note);
+                }
         });
     }
 
@@ -102,5 +102,10 @@ public class MainActivity extends AppCompatActivity implements
         oks.setUrl("http://sharesdk.cn");
         // 启动分享GUI
         oks.show(this);
+    }
+
+    @Override
+    public void onListFragmentInteraction(Tag item) {
+
     }
 }
