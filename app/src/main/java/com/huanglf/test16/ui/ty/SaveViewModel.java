@@ -29,14 +29,20 @@ public class SaveViewModel extends ViewModel {
 
     //更新笔记
     public void saveNote(int id, String title, String content, String date) {
-        Note note = new Note(title, content, date);
+        Note note = new Note();
+        note.setTitle(title);
+        note.setContent(content);
+        note.setUpdateDate(date);
         note.setId(id);
         noteRepository.updateNote(note);
     }
 
     //新建笔记
-    public void saveNote(String title, String content, String date) {
-        Note note = new Note(title, content, date);
+    public void saveNote(String title, String content,String date) {
+        Note note = new Note();
+        note.setTitle(title);
+        note.setContent(content);
+        note.setUpdateDate(date);
         note.setCreateDate(date);
         noteRepository.insertNote(note);
     }

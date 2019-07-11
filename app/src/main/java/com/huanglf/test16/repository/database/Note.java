@@ -4,8 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import lombok.NonNull;
 import java.io.Serializable;
+
+import lombok.NonNull;
 
 
 /**
@@ -35,25 +36,7 @@ public class Note implements Serializable {
     @NonNull
     private int tagId;
 
-    public Note() {
-        this.isStar = false;
-    }
-
-    public Note(String title, String content, String updateDate) {
-        this.title = title;
-        this.content = content;
-        this.updateDate = updateDate;
-//        this.isStar = false;
-    }
-
-    public Note(int id, String title, String content, String createDate, String updateDate, Boolean isStar) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        this.isStar = isStar;
-    }
+    public Note() { }
 
     public int getId() {
         return id;
