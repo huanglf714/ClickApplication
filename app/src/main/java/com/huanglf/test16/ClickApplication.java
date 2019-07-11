@@ -3,7 +3,6 @@ package com.huanglf.test16;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.huanglf.test16.repository.database.AppDatabase;
 import com.mob.MobSDK;
@@ -11,7 +10,6 @@ import com.mob.MobSDK;
 import cn.bmob.v3.Bmob;
 import cn.sharesdk.framework.ShareSDK;
 
-import static cn.bmob.v3.Bmob.getApplicationContext;
 
 /**
  * Date: 2019/7/3
