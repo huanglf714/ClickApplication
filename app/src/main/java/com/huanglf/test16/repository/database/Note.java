@@ -28,25 +28,7 @@ public class Note {
     @ColumnInfo(name = "is_star")
     private Boolean isStar;
 
-    public Note() {
-        this.isStar = false;
-    }
-
-    public Note(String title, String content, String updateDate) {
-        this.title = title;
-        this.content = content;
-        this.updateDate = updateDate;
-        this.isStar = false;
-    }
-
-    public Note(int id, String title, String content, String createDate, String updateDate, Boolean isStar) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        this.isStar = isStar;
-    }
+    public Note() { }
 
     public int getId() {
         return id;
