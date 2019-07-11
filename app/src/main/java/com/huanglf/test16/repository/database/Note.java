@@ -2,12 +2,12 @@ package com.huanglf.test16.repository.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import lombok.NonNull;
 
 import java.io.Serializable;
+
 
 
 /**
@@ -37,27 +37,7 @@ public class Note implements Serializable {
     @NonNull
     private int tagId;
 
-    public Note() {
-        this.isStar = false;
-    }
-
-    @Ignore
-    public Note(String title, String content, String updateDate) {
-        this.title = title;
-        this.content = content;
-        this.updateDate = updateDate;
-//        this.isStar = false;
-    }
-
-    @Ignore
-    public Note(int id, String title, String content, String createDate, String updateDate, Boolean isStar) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        this.isStar = isStar;
-    }
+    public Note() { }
 
     public int getId() {
         return id;

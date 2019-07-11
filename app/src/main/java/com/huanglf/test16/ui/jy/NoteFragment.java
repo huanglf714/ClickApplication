@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.database.Note;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +43,6 @@ public class NoteFragment extends Fragment {
     private ItemTouchHelper itemTouchHelper;
     private NoteListViewModel noteListViewModel;
     private boolean favorTag;
-    private boolean isFirst;
     private final String ARG_IS_FAVOR;
     private MyNoteRecyclerViewAdapter adapter;
 
@@ -55,7 +55,7 @@ public class NoteFragment extends Fragment {
         itemTouchHelperCallback = new ItemTouchHelperCallback();
         itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         favorTag = false;
-        isFirst = true;
+        mNoteList = new ArrayList<>(20);
         ARG_IS_FAVOR = "is-favor";
     }
 
@@ -93,13 +93,15 @@ public class NoteFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
         }
+        adapter = new MyNoteRecyclerViewAdapter(mNoteList, mListener);
+        recyclerView.setAdapter(adapter);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e("JY", "onViewCreated: ----------------------");
         noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
         noteListViewModel.getNotes(favorTag);
         noteListViewModel.getNoteList(favorTag).observe(this, new Observer<List<Note>>() {
@@ -107,15 +109,8 @@ public class NoteFragment extends Fragment {
             public void onChanged(List<Note> list) {
                 Log.e("JY", "onChanged: ------------------------------" + list.size());
                 mNoteList = list;
-                if (isFirst) {
-                    adapter = new MyNoteRecyclerViewAdapter(mNoteList, mListener);
-                    recyclerView.setAdapter(adapter);
-                    itemTouchHelper.attachToRecyclerView(recyclerView);
-                    isFirst = false;
-                } else {
-                    adapter.setmValues(mNoteList);
-                    adapter.notifyData();
-                }
+                adapter.setmValues(mNoteList);
+                adapter.notifyData();
             }
         });
     }

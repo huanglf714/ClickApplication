@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.jy.TopBarFragment">
+    >
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:fitsSystemWindows="true" />
+    android:id="@+id/topBar"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:fitsSystemWindows="true" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/left_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/right_new"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -55,7 +55,6 @@
         <action
             android:id="@+id/toPersonFromMain"
             app:destination="@id/fragmentPersonInfo"
-            app:popUpTo="@+id/fragmentMain"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

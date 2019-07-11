@@ -17,6 +17,9 @@ import com.huanglf.test16.R;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +32,6 @@ public class FragmentMain extends Fragment {
     public FragmentMain() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,13 +62,13 @@ public class FragmentMain extends Fragment {
             }
         });
         initTab();
-        initViewPager();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initViewPager();
     }
 
     private void initTab() {
@@ -83,7 +85,8 @@ public class FragmentMain extends Fragment {
     }
 
     private void initViewPager() {
-        mViewPager.setAdapter(new MainTabAdapter(getActivity().getSupportFragmentManager(), 0));
+//      getChildFragmentManagerm必须用这个
+        mViewPager.setAdapter(new MainTabAdapter(getChildFragmentManager(), 0));
         mViewPager.setSwipeable(false);
         mMainTabSegment.setupWithViewPager(mViewPager, false);
     }

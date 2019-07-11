@@ -38,6 +38,8 @@ public class ExtendEditText extends androidx.appcompat.widget.AppCompatEditText 
     public static final int STYLE_QUOTE = 0x0005; // 引用
     public static final int STYLE_LINK = 0x0006; // 链接
 
+    private FontSize fontSize = new FontSize();
+
     // rule
     private static final Rule[] mRules = {
             Rule.EXCLUSIVE_EXCLUSIVE,
@@ -323,6 +325,23 @@ public class ExtendEditText extends androidx.appcompat.widget.AppCompatEditText 
      */
     public ExtendEditText quote() {
         format(STYLE_QUOTE);
+        return this;
+    }
+    /**
+     * 设置字体增大
+     */
+    public ExtendEditText increaseSize() {
+        fontSize.increaseSize(getEditableText(),getSelectionStart(),getSelectionEnd());
+        return this;
+
+    }
+
+    /**
+     * 设置字体减小
+     * @return
+     */
+    public ExtendEditText decreaseSize() {
+        fontSize.decreaseSize(getEditableText(),getSelectionStart(),getSelectionEnd());
         return this;
     }
 
