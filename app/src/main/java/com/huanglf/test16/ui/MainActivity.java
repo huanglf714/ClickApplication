@@ -28,6 +28,8 @@ import com.huanglf.test16.ui.css.TagFragment;
 import com.huanglf.test16.ui.css.TagListViewModel;
 import com.huanglf.test16.ui.jy.NoteFragment;
 import com.huanglf.test16.ui.jy.NoteListViewModel;
+import com.huanglf.test16.ui.ty.ChooseTagFragment;
+import com.huanglf.test16.ui.ty.SaveViewModel;
 import com.huanglf.test16.util.MessageUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
@@ -39,9 +41,10 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class MainActivity extends AppCompatActivity implements
         NoteFragment.OnListFragmentInteractionListener, TagFragment.OnListFragmentInteractionListener,
-        AddTagDialog.OnCenterItemClickListener {
+        AddTagDialog.OnCenterItemClickListener, ChooseTagFragment.OnListFragmentInteractionListener {
     private NoteListViewModel noteListViewModel;
     private TagListViewModel tagListViewModel;
+    private SaveViewModel saveViewModel;
     private final String ARG_DATA = "note_data";
     private static AddTagDialog addTagDialog;
     public static int[] colorList = {R.drawable.tag, R.drawable.tag1, R.drawable.tag2,
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         QMUIStatusBarHelper.translucent(this);
         noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
+        saveViewModel = ViewModelProviders.of(this).get(SaveViewModel.class);
         tagListViewModel = ViewModelProviders.of(this).get(TagListViewModel.class);
         noteRepository = NoteRepositoryImpl.getInstance();
         //全局监听异常
