@@ -2,6 +2,7 @@ package com.huanglf.test16.ui.css;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class MyTagRecyclerViewAdapter extends RecyclerView.Adapter<MyTagRecycler
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mImageView.setImageResource(mValues.get(position).getImage());
         holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
