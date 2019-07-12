@@ -327,21 +327,23 @@ public class ExtendEditText extends androidx.appcompat.widget.AppCompatEditText 
         format(STYLE_QUOTE);
         return this;
     }
+
     /**
      * 设置字体增大
      */
     public ExtendEditText increaseSize() {
-        fontSize.increaseSize(getEditableText(),getSelectionStart(),getSelectionEnd());
+        fontSize.increaseSize(getEditableText(), getSelectionStart(), getSelectionEnd());
         return this;
 
     }
 
     /**
      * 设置字体减小
+     *
      * @return
      */
     public ExtendEditText decreaseSize() {
-        fontSize.decreaseSize(getEditableText(),getSelectionStart(),getSelectionEnd());
+        fontSize.decreaseSize(getEditableText(), getSelectionStart(), getSelectionEnd());
         return this;
     }
 

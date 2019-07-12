@@ -9,7 +9,6 @@ import lombok.NonNull;
 import java.io.Serializable;
 
 
-
 /**
  * Date: 2019/7/3
  * Author: huanglf
@@ -37,7 +36,8 @@ public class Note implements Serializable {
     @NonNull
     private int tagId;
 
-    public Note() { }
+    public Note() {
+    }
 
     public int getId() {
         return id;

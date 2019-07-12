@@ -25,14 +25,12 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static cn.bmob.v3.Bmob.getApplicationContext;
 import static com.huanglf.test16.ClickApplication.sharedPreferences;
 import static com.huanglf.test16.ui.MainActivity.colorList;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,12 +42,12 @@ public class FragmentPersonInfo extends Fragment implements AddTagDialog.OnCente
     TextView changePasswordTv = null;
     Button logout = null;
     ImageView addTagBtn = null;
-    private AddTagDialog addTagDialog;
     private TagListViewModel tagListViewModel;
+    private static AddTagDialog addTagDialog;
     //当前选择的颜色的编号
     private static int colorNum = 0;
-    private View itemView;
     private static List<ImageView> imageViewList = new ArrayList<>();
+    private static View itemView;
 
     public FragmentPersonInfo() {
         // Required empty public constructor
@@ -98,19 +96,23 @@ public class FragmentPersonInfo extends Fragment implements AddTagDialog.OnCente
                 Navigation.findNavController(v).navigate(R.id.action_fragmentPersonInfo_to_fragmentLaunch);
             }
         });
-        addTagDialog = new AddTagDialog(getActivity(), R.layout.fragment_dialog,
-                new int[]{R.id.confirmAdd, R.id.cancleAdd, R.id.tagImage1, R.id.tagImage2,
-                        R.id.tagImage3, R.id.tagImage4, R.id.tagImage5, R.id.tagImage6});
-        addTagDialog.setOnCenterItemClickListener(this);
-        itemView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_dialog, null);
-        //覆盖系统构建
-        addTagDialog.setContentView(itemView);
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick1));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick2));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick3));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick4));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick5));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick6));
+        if (addTagDialog == null) {
+            addTagDialog = new AddTagDialog(getActivity(), R.layout.fragment_dialog,
+                    new int[]{R.id.confirmAdd, R.id.cancleAdd, R.id.tagImage1, R.id.tagImage2,
+                            R.id.tagImage3, R.id.tagImage4, R.id.tagImage5, R.id.tagImage6});
+            addTagDialog.setOnCenterItemClickListener(this);
+            itemView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_dialog, null);
+            //覆盖系统构建
+            addTagDialog.setContentView(itemView);
+        }
+        if (imageViewList.size() == 0) {
+            imageViewList.add((ImageView) itemView.findViewById(R.id.tick1));
+            imageViewList.add((ImageView) itemView.findViewById(R.id.tick2));
+            imageViewList.add((ImageView) itemView.findViewById(R.id.tick3));
+            imageViewList.add((ImageView) itemView.findViewById(R.id.tick4));
+            imageViewList.add((ImageView) itemView.findViewById(R.id.tick5));
+            imageViewList.add((ImageView) itemView.findViewById(R.id.tick6));
+        }
         addTagBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,37 +137,31 @@ public class FragmentPersonInfo extends Fragment implements AddTagDialog.OnCente
                 Toast.makeText(getApplicationContext(), "您已取消添加标签", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tagImage1:
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(0).setVisibility(View.VISIBLE);
-                colorNum = 0;
+                setImageVisibility(colorNum, 0);
                 break;
             case R.id.tagImage2:
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(1).setVisibility(View.VISIBLE);
-                colorNum = 1;
+                setImageVisibility(colorNum, 1);
                 break;
             case R.id.tagImage3:
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(2).setVisibility(View.VISIBLE);
-                colorNum = 2;
+                setImageVisibility(colorNum, 2);
                 break;
             case R.id.tagImage4:
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(3).setVisibility(View.VISIBLE);
-                colorNum = 3;
+                setImageVisibility(colorNum, 3);
                 break;
             case R.id.tagImage5:
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(4).setVisibility(View.VISIBLE);
-                colorNum = 4;
+                setImageVisibility(colorNum, 4);
                 break;
             case R.id.tagImage6:
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(5).setVisibility(View.VISIBLE);
-                colorNum = 5;
+                setImageVisibility(colorNum, 5);
                 break;
             default:
                 break;
         }
+    }
+
+    private static void setImageVisibility(int oldNum, int newNum) {
+        imageViewList.get(oldNum).setVisibility(View.INVISIBLE);
+        imageViewList.get(newNum).setVisibility(View.VISIBLE);
+        colorNum = newNum;
     }
 }

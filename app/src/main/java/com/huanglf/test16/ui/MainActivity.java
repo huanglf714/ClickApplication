@@ -33,6 +33,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements
     private NoteListViewModel noteListViewModel;
     private TagListViewModel tagListViewModel;
     private final String ARG_DATA = "note_data";
-    private AddTagDialog addTagDialog;
+    private static AddTagDialog addTagDialog;
     public static int[] colorList = {R.drawable.tag, R.drawable.tag1, R.drawable.tag2,
             R.drawable.tag3, R.drawable.tag4, R.drawable.tag5, R.drawable.tag6};
     //当前改变的标签的使用次数
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private static List<ImageView> imageViewList = new ArrayList<>();
 
-    private View itemView;
+    private static View itemView;
+    private static EditText editText;
     NoteRepositoryImpl noteRepository = null;
 
     @Override
@@ -73,19 +75,19 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
         //全局监听剪切板
-        final ClipboardManager clipboard = (ClipboardManager)getApplicationContext().getSystemService(getApplicationContext().CLIPBOARD_SERVICE);
+        final ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(getApplicationContext().CLIPBOARD_SERVICE);
         clipboard.addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
-                @Override
-                public void onPrimaryClipChanged() {
-                    ClipData data = clipboard.getPrimaryClip();
-                    ClipData.Item item = data.getItemAt(0);
-                    String content = item.getText().toString();
-                    Log.e("myLog",content+"--------------------");
-                    Note note = new Note();
-                    note.setTitle(content.substring(0,(content.length()<8?content.length()-1:7)));
-                    note.setContent(content);
-                    noteRepository.insertNote(note);
-                }
+            @Override
+            public void onPrimaryClipChanged() {
+                ClipData data = clipboard.getPrimaryClip();
+                ClipData.Item item = data.getItemAt(0);
+                String content = item.getText().toString();
+                Log.e("myLog", content + "--------------------");
+                Note note = new Note();
+                note.setTitle(content.substring(0, (content.length() < 8 ? content.length() - 1 : 7)));
+                note.setContent(content);
+                noteRepository.insertNote(note);
+            }
         });
     }
 
@@ -162,20 +164,26 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void DiyDialog4(Tag item) {
-        addTagDialog = new AddTagDialog(this, R.layout.fragment_dialog,
-                new int[]{R.id.confirmAdd, R.id.cancleAdd, R.id.tagImage1, R.id.tagImage2,
-                        R.id.tagImage3, R.id.tagImage4, R.id.tagImage5, R.id.tagImage6});
-        addTagDialog.setOnCenterItemClickListener(this);
-        //自己构建
-        itemView = LayoutInflater.from(this).inflate(R.layout.fragment_dialog, null);
-        //覆盖系统构建
-        addTagDialog.setContentView(itemView);
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick1));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick2));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick3));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick4));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick5));
-        imageViewList.add((ImageView) itemView.findViewById(R.id.tick6));
+        if (addTagDialog == null) {
+            addTagDialog = new AddTagDialog(this, R.layout.fragment_dialog,
+                    new int[]{R.id.confirmAdd, R.id.cancleAdd, R.id.tagImage1, R.id.tagImage2,
+                            R.id.tagImage3, R.id.tagImage4, R.id.tagImage5, R.id.tagImage6});
+            addTagDialog.setOnCenterItemClickListener(this);
+            //自己构建
+            itemView = LayoutInflater.from(this).inflate(R.layout.fragment_dialog, null);
+            //覆盖系统构建
+            addTagDialog.setContentView(itemView);
+            if (imageViewList.size() == 0) {
+                imageViewList.add((ImageView) itemView.findViewById(R.id.tick1));
+                imageViewList.add((ImageView) itemView.findViewById(R.id.tick2));
+                imageViewList.add((ImageView) itemView.findViewById(R.id.tick3));
+                imageViewList.add((ImageView) itemView.findViewById(R.id.tick4));
+                imageViewList.add((ImageView) itemView.findViewById(R.id.tick5));
+                imageViewList.add((ImageView) itemView.findViewById(R.id.tick6));
+            }
+            editText = itemView.findViewById(R.id.tagNameEdit);
+        }
+        editText.setText(item.getName());
         currentNumber = item.getNumber();
         currentId = item.getId();
         addTagDialog.show();
@@ -196,43 +204,31 @@ public class MainActivity extends AppCompatActivity implements
                 Toast.makeText(getApplicationContext(), "您已取消修改标签", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tagImage1:
-                Log.e("mylog", colorNum + "gggggggggggg");
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(0).setVisibility(View.VISIBLE);
-                colorNum = 0;
+                setImageVisibility(colorNum, 0);
                 break;
             case R.id.tagImage2:
-                Log.e("mylog", colorNum + "hhhhhhhhhhhh");
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(1).setVisibility(View.VISIBLE);
-                colorNum = 1;
+                setImageVisibility(colorNum, 1);
                 break;
             case R.id.tagImage3:
-                Log.e("mylog", colorNum + "kkkkkkkkkkkk");
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(2).setVisibility(View.VISIBLE);
-                colorNum = 2;
+                setImageVisibility(colorNum, 2);
                 break;
             case R.id.tagImage4:
-                Log.e("mylog", colorNum + "lllllllllllllll");
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(3).setVisibility(View.VISIBLE);
-                colorNum = 3;
+                setImageVisibility(colorNum, 3);
                 break;
             case R.id.tagImage5:
-                Log.e("mylog", colorNum + "tttttttttttttttt");
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(4).setVisibility(View.VISIBLE);
-                colorNum = 4;
+                setImageVisibility(colorNum, 4);
                 break;
             case R.id.tagImage6:
-                Log.e("mylog", colorNum + "eeeeeeeeeeeeeeeeee");
-                imageViewList.get(colorNum).setVisibility(View.INVISIBLE);
-                imageViewList.get(5).setVisibility(View.VISIBLE);
-                colorNum = 5;
+                setImageVisibility(colorNum, 5);
                 break;
             default:
                 break;
         }
+    }
+
+    private static void setImageVisibility(int oldNum, int newNum) {
+        imageViewList.get(oldNum).setVisibility(View.INVISIBLE);
+        imageViewList.get(newNum).setVisibility(View.VISIBLE);
+        colorNum = newNum;
     }
 }
