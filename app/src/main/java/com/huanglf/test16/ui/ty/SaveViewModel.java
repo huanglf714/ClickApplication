@@ -38,7 +38,7 @@ public class SaveViewModel extends ViewModel {
     }
 
     //新建笔记
-    public void saveNote(String title, String content,String date) {
+    public void saveNote(String title, String content, String date) {
         Note note = new Note();
         note.setTitle(title);
         note.setContent(content);

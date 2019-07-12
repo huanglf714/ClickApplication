@@ -29,8 +29,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentDetailNote extends Fragment {
-    private ImageView btnBack,btnSave = null;
-    private ImageButton increase,decrease;
+    private ImageView btnBack, btnSave = null;
+    private ImageButton increase, decrease;
     private ImageButton mIbBold;
     private ImageButton mIbItalic;
     private ImageButton mIbUnderline;
@@ -139,7 +139,7 @@ public class FragmentDetailNote extends Fragment {
         });
     }
 
-    private void initView(View view){
+    private void initView(View view) {
         btnBack = view.findViewById(R.id.left_user);
         btnSave = view.findViewById(R.id.right_new);
         increase = view.findViewById(R.id.increase);
