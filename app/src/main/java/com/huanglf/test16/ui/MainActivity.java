@@ -16,20 +16,25 @@ import com.huanglf.test16.repository.database.Tag;
 import com.huanglf.test16.ui.css.TagFragment;
 import com.huanglf.test16.ui.jy.NoteFragment;
 import com.huanglf.test16.ui.jy.NoteListViewModel;
+import com.huanglf.test16.ui.ty.ChooseTagFragment;
+import com.huanglf.test16.ui.ty.SaveViewModel;
 import com.huanglf.test16.util.MessageUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 
 public class MainActivity extends AppCompatActivity implements
-        NoteFragment.OnListFragmentInteractionListener, TagFragment.OnListFragmentInteractionListener {
+        NoteFragment.OnListFragmentInteractionListener, TagFragment.OnListFragmentInteractionListener
+        , ChooseTagFragment.OnListFragmentInteractionListener{
     private NoteListViewModel noteListViewModel;
-    private final String ARG_DATA = "note_data";
+    private SaveViewModel saveViewModel;
+    public final String ARG_DATA = "note_data";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         QMUIStatusBarHelper.translucent(this);
         noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
+        saveViewModel = ViewModelProviders.of(this).get(SaveViewModel.class);
 
         //全局监听异常
         MessageUtil.getExceptionLiveData().observe(this, new Observer<String>() {
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onListFragmentInteraction(Tag item) {
+
     }
 
 }

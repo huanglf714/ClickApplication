@@ -27,17 +27,18 @@ public class SaveViewModel extends ViewModel {
         }
     }
 
-    //更新笔记
-    public void saveNote(int id, String title, String content, String date) {
-        Note note = new Note(title, content, date);
-        note.setId(id);
+    //选择笔记标签
+    public void selectTag(int tagId,Note note){
+        note.setTagId(tagId);
         noteRepository.updateNote(note);
     }
 
-    //新建笔记
-    public void saveNote(String title, String content, String date) {
-        Note note = new Note(title, content, date);
-        note.setCreateDate(date);
-        noteRepository.insertNote(note);
+    //保存笔记
+    public void saveNote(Note note, Boolean isNew) {
+        if(isNew) {
+            noteRepository.insertNote(note);
+        }else {
+            noteRepository.updateNote(note);
+        }
     }
 }

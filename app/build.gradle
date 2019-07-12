@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.huanglf.test16"
-        minSdkVersion 14
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -75,4 +75,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.1'
     androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.1'
+
+    //  PopupWindow dependencies
+    implementation 'com.github.inksnow:popuputils:1.0.7'
 }
