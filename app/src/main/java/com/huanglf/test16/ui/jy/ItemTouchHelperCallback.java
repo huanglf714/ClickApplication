@@ -1,7 +1,6 @@
 package com.huanglf.test16.ui.jy;
 
 import android.graphics.Canvas;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;

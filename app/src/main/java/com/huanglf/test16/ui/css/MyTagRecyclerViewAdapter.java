@@ -2,6 +2,7 @@ package com.huanglf.test16.ui.css;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class MyTagRecyclerViewAdapter extends RecyclerView.Adapter<MyTagRecycler
     private final List<Tag> mValues;
     private final OnListFragmentInteractionListener mListener;
 
+
     public MyTagRecyclerViewAdapter(List<Tag> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
@@ -43,6 +45,7 @@ public class MyTagRecyclerViewAdapter extends RecyclerView.Adapter<MyTagRecycler
         holder.mImageView.setImageResource(mValues.get(position).getImage());
         holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
         holder.mContentView.setText(mValues.get(position).getName());
+        holder.mNumberView.setText(String.valueOf(mValues.get(position).getNumber()));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +54,15 @@ public class MyTagRecyclerViewAdapter extends RecyclerView.Adapter<MyTagRecycler
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
+            }
+        });
+        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mListener != null) {
+                    mListener.ondelect(holder.mItem);
+                }
+                return true;
             }
         });
     }
@@ -65,14 +77,16 @@ public class MyTagRecyclerViewAdapter extends RecyclerView.Adapter<MyTagRecycler
         public final ImageView mImageView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final TextView mNumberView;
         public Tag mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mImageView = view.findViewById(R.id.tagImage);
-            mIdView = (TextView) view.findViewById(R.id.tagId);
-            mContentView = (TextView) view.findViewById(R.id.tagName);
+            mIdView = view.findViewById(R.id.tagId);
+            mContentView = view.findViewById(R.id.tagName);
+            mNumberView = view.findViewById(R.id.tagNumber);
         }
 
         @Override

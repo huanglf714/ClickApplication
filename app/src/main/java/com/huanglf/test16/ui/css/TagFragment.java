@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,7 +39,6 @@ public class TagFragment extends Fragment {
     private TagListViewModel tagListViewModel;
     private List<Tag> tagList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ItemTouchHelper itemTouchHelper;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -94,18 +92,6 @@ public class TagFragment extends Fragment {
             public void onChanged(List<Tag> list) {
                 Log.e("CSS", "onChanged: ------------------------------" + list.size());
                 tagList = list;
-                tagList.add(new Tag(1, "生活", 0, R.drawable.tag));
-                tagList.add(new Tag(2, "工作", 0, R.drawable.tag1));
-                tagList.add(new Tag(3, "学习", 0, R.drawable.tag2));
-                tagList.add(new Tag(4, "娱乐", 0, R.drawable.tag3));
-                tagList.add(new Tag(5, "购物", 0, R.drawable.tag4));
-                tagList.add(new Tag(6, "吃喝", 0, R.drawable.tag5));
-                tagList.add(new Tag(1, "生活", 0, R.drawable.tag));
-                tagList.add(new Tag(2, "工作", 0, R.drawable.tag1));
-                tagList.add(new Tag(3, "学习", 0, R.drawable.tag2));
-                tagList.add(new Tag(4, "娱乐", 0, R.drawable.tag3));
-                tagList.add(new Tag(5, "购物", 0, R.drawable.tag4));
-                tagList.add(new Tag(6, "吃喝", 0, R.drawable.tag5));
                 recyclerView.setAdapter(new MyTagRecyclerViewAdapter(tagList, mListener));
             }
         });
@@ -141,5 +127,7 @@ public class TagFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Tag item);
+
+        void ondelect(Tag tag);
     }
 }

@@ -4,9 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import lombok.NonNull;
+
 import java.io.Serializable;
 
-import lombok.NonNull;
 
 
 /**
