@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.huanglf.test16.R;
-import com.huanglf.test16.common.MessageEnum;
 import com.huanglf.test16.repository.impl.UserRepositoryImpl;
 
 import static com.huanglf.test16.ClickApplication.sharedPreferences;

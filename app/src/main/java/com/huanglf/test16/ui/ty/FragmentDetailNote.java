@@ -1,10 +1,7 @@
 package com.huanglf.test16.ui.ty;
 
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,6 +75,7 @@ public class FragmentDetailNote extends Fragment {
                 saveViewModel.saveNote(note,isNew);
                 Navigation.findNavController(view)
                         .navigate(R.id.action_fragmentDetailNote_to_testFragment);
+
             }
         });
 

@@ -26,4 +26,27 @@ public class TagListViewModel extends ViewModel {
         return tagList;
     }
 
+    public ITagRepository getTagRepository() {
+        return tagRepository;
+    }
+
+    public void insertNewTag(String name, int image) {
+        Tag tag = new Tag();
+        tag.setName(name);
+        tag.setImage(image);
+        tagRepository.insertTag(tag);
+    }
+
+    public void updateNewTag(int id, String name, int image, int currrentNumber) {
+        Tag tag = new Tag();
+        tag.setId(id);
+        tag.setName(name);
+        tag.setImage(image);
+        tag.setNumber(currrentNumber);
+        tagRepository.updateTag(tag);
+    }
+
+    public void deleteTag(Tag tag) {
+        tagRepository.deleteTag(tag);
+    }
 }

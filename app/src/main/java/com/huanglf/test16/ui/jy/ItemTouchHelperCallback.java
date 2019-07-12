@@ -1,11 +1,8 @@
 package com.huanglf.test16.ui.jy;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,9 +43,11 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         //isCurrentlyActive可以判断当前是否是滑动状态
         MyNoteRecyclerViewAdapter.ViewHolder myViewHolder = (MyNoteRecyclerViewAdapter.ViewHolder) viewHolder;
-        if ((dX <= 0.0f && isCurrentlyActive) || dX > 0.0f) {
+        if (dX <= 0.0f && isCurrentlyActive) {
             dX = getCurrentPosX(dX, myViewHolder.getActionWidth());
             setViewTranslationX(dX, myViewHolder);
+        } else if (dX > 0.0f && isCurrentlyActive) {
+            setViewTranslationX(0.0f, myViewHolder);
         }
     }
 

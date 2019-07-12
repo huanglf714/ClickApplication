@@ -1,6 +1,5 @@
 package com.huanglf.test16.ui.css;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,8 +9,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +18,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.huanglf.test16.ClickApplication;
 import com.huanglf.test16.R;
 import com.huanglf.test16.common.MessageEnum;
-import com.huanglf.test16.ui.jy.FragmentMain;
 
-import cn.bmob.v3.BmobUser;
-
-import static cn.bmob.v3.Bmob.getApplicationContext;
 import static com.huanglf.test16.ClickApplication.sharedPreferences;
 
 

@@ -1,15 +1,11 @@
 package com.huanglf.test16.ui.css;
 
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.huanglf.test16.repository.IUserRepository;
 import com.huanglf.test16.repository.impl.UserRepositoryImpl;
-
-import cn.bmob.v3.BmobUser;
 
 /**
  * Date: 2019/7/3

@@ -7,6 +7,12 @@
     tools:context=".ui.css.FragmentPersonInfo">
 
 
+    <include
+        android:id="@+id/person_top_bar"
+        layout="@layout/fragment_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -18,8 +24,8 @@
         android:text="用户名"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintTop_toTopOf="@+id/person_top_bar"
+        app:layout_constraintVertical_bias="0.17000002" />
 
     <TextView
         android:id="@+id/textView2"
@@ -47,19 +53,18 @@
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
-    <!--<com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton-->
-    <Button
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
         android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorBlue"
+        android:background="@color/ThemBlue"
         android:text="退出当前账号"
         android:textColor="#ffff"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"></Button>
-    <!--app:qmui_backgroundColor="@color/colorBlue"-->
-    <!--app:qmui_borderColor="@color/colorBlue" />-->
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:qmui_backgroundColor="@color/ThemBlue"
+        app:qmui_borderColor="@color/ThemBlue" />
 
     <TextView
         android:id="@+id/changePasswordTv"
@@ -72,25 +77,14 @@
         app:layout_constraintStart_toStartOf="@+id/accountTv"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="32dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="32dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <View
         android:id="@+id/view3"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
         android:background="@color/qmui_config_color_gray_9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back" />
+        app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <TextView
         android:id="@+id/textView3"
@@ -106,8 +100,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/view2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view3"
-        app:layout_constraintVertical_bias="0.120000005" />
+        app:layout_constraintTop_toBottomOf="@+id/person_top_bar" />
 
     <View
         android:id="@+id/view4"
@@ -140,12 +133,14 @@
         android:id="@+id/tagFragmentView"
         android:name="com.huanglf.test16.ui.css.TagFragment"
         android:layout_width="389dp"
-        android:layout_height="400dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4" />
@@ -173,7 +168,22 @@
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back"
-        app:layout_constraintVertical_bias="0.32999998" />
+        app:layout_constraintTop_toBottomOf="@+id/person_top_bar"
+        app:layout_constraintVertical_bias="0.33" />
 
+    <ImageView
+        android:id="@+id/addTagBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/add_tag"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
 </androidx.constraintlayout.widget.ConstraintLayout>
