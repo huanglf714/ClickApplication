@@ -11,12 +11,11 @@ import android.widget.TextView;
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.database.Tag;
 import com.huanglf.test16.ui.css.TagFragment.OnListFragmentInteractionListener;
-import com.huanglf.test16.ui.css.dummy.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link } and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
@@ -44,7 +43,7 @@ public class MyTagRecyclerViewAdapter extends RecyclerView.Adapter<MyTagRecycler
         holder.mImageView.setImageResource(mValues.get(position).getImage());
         holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
         holder.mContentView.setText(mValues.get(position).getName());
-        holder.mNumberView.setText(String.valueOf(mValues.get(position).getNumber()));
+//        holder.mNumberView.setText(String.valueOf(mValues.get(position).getNumber()));
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +75,7 @@ public class MyTagRecyclerViewAdapter extends RecyclerView.Adapter<MyTagRecycler
         public final ImageView mImageView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public final TextView mNumberView;
+//        public final TextView mNumberView;
         public Tag mItem;
 
         public ViewHolder(View view) {
@@ -85,7 +84,7 @@ public class MyTagRecyclerViewAdapter extends RecyclerView.Adapter<MyTagRecycler
             mImageView = view.findViewById(R.id.tagImage);
             mIdView = view.findViewById(R.id.tagId);
             mContentView = view.findViewById(R.id.tagName);
-            mNumberView = view.findViewById(R.id.tagNumber);
+//            mNumberView = view.findViewById(R.id.tagNumber);
         }
 
         @Override

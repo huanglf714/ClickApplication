@@ -34,7 +34,7 @@ public class Note implements Serializable {
 
     @ColumnInfo(name = "tag_id")
     @NonNull
-    private int tagId;
+    private int tagId = 1;
 
     public Note() {
     }
@@ -102,11 +102,12 @@ public class Note implements Serializable {
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                ", title=" + title + '\'' +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", createDate='" + createDate + '\'' +
                 ", updateDate='" + updateDate + '\'' +
                 ", isStar=" + isStar +
+                ", tagId=" + tagId +
                 '}';
     }
 }

@@ -43,22 +43,18 @@ public class FragmentMain extends Fragment {
         mMainTabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int index) {
-                Toast.makeText(getContext(), "select index " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onTabUnselected(int index) {
-                Toast.makeText(getContext(), "unSelect index " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onTabReselected(int index) {
-                Toast.makeText(getContext(), "reselect index " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDoubleTap(int index) {
-                Toast.makeText(getContext(), "doubleSelect index " + index, Toast.LENGTH_SHORT).show();
             }
         });
         initTab();

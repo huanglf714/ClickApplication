@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -30,7 +29,6 @@ import com.huanglf.test16.ui.css.TagListViewModel;
 import com.huanglf.test16.ui.jy.NoteFragment;
 import com.huanglf.test16.ui.jy.NoteListViewModel;
 import com.huanglf.test16.ui.ty.ChooseTagFragment;
-import com.huanglf.test16.ui.ty.SaveViewModel;
 import com.huanglf.test16.util.MessageUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
@@ -39,13 +37,16 @@ import java.util.List;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
+import static com.huanglf.test16.ui.ty.FragmentDetailNote.dialog;
+import static com.huanglf.test16.ui.ty.FragmentDetailNote.note;
+import static com.huanglf.test16.ui.ty.FragmentDetailNote.tagImg;
+
 
 public class MainActivity extends AppCompatActivity implements
         NoteFragment.OnListFragmentInteractionListener, TagFragment.OnListFragmentInteractionListener,
         AddTagDialog.OnCenterItemClickListener, ChooseTagFragment.OnListFragmentInteractionListener {
     private NoteListViewModel noteListViewModel;
     private TagListViewModel tagListViewModel;
-    private SaveViewModel saveViewModel;
     private final String ARG_DATA = "note_data";
     private static AddTagDialog addTagDialog;
     public static int[] colorList = {R.drawable.tag, R.drawable.tag1, R.drawable.tag2,
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         QMUIStatusBarHelper.translucent(this);
         noteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel.class);
-        saveViewModel = ViewModelProviders.of(this).get(SaveViewModel.class);
         tagListViewModel = ViewModelProviders.of(this).get(TagListViewModel.class);
         noteRepository = NoteRepositoryImpl.getInstance();
         //全局监听异常
@@ -250,5 +250,12 @@ public class MainActivity extends AppCompatActivity implements
         imageViewList.get(oldNum).setVisibility(View.INVISIBLE);
         imageViewList.get(newNum).setVisibility(View.VISIBLE);
         colorNum = newNum;
+    }
+
+    @Override
+    public void onTagSelect(Tag item) {
+        dialog.dismiss();
+        note.setTagId(item.getId());
+        tagImg.setImageResource(item.getImage());
     }
 }

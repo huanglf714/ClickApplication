@@ -12,12 +12,12 @@
 
     <ImageButton
         android:id="@+id/left_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
 
     <ImageButton
         android:id="@+id/right_new"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
 
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
