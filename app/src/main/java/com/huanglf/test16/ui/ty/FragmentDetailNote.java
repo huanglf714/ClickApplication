@@ -73,9 +73,6 @@ public class FragmentDetailNote extends Fragment {
             public void onClick(View v) {
                 note = constructNote();
                 saveViewModel.saveNote(note,isNew);
-                Navigation.findNavController(view)
-                        .navigate(R.id.action_fragmentDetailNote_to_testFragment);
-
             }
         });
 
@@ -173,7 +170,10 @@ public class FragmentDetailNote extends Fragment {
                  editText.setText(spanned);
                  isNew = false;
              }
-        }
+        }else {
+             note = new Note();
+         }
+
 
     }
 

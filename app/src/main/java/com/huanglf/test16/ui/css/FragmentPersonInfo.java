@@ -130,7 +130,7 @@ public class FragmentPersonInfo extends Fragment implements AddTagDialog.OnCente
                 int image = colorList[colorNum + 1];
                 tagListViewModel.insertNewTag(name, image);
                 dialog.dismiss();
-                Toast.makeText(getApplicationContext(), "点击了确定添加标签", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "添加标签成功", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.cancleAdd:
                 dialog.dismiss();
