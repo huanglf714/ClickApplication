@@ -57,4 +57,8 @@ public class TagListViewModel extends ViewModel {
     public Tag queryTag() {
         return tagRepository.queryTag();
     }
+
+    public LiveData<Tag> selectTag(int tagId) {
+        return tagRepository.queryTagId(tagId);
+    }
 }

@@ -13,19 +13,15 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.database.Tag;
-import com.huanglf.test16.ui.css.MyTagRecyclerViewAdapter;
-import com.huanglf.test16.ui.css.TagFragment;
 import com.huanglf.test16.ui.css.TagListViewModel;
-import com.huanglf.test16.ui.ty.dummy.DummyContent;
-import com.huanglf.test16.ui.ty.dummy.DummyContent.DummyItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +61,7 @@ public class ChooseTagFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.e("my", "onCreate: -----------------------`");
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -118,6 +114,19 @@ public class ChooseTagFragment extends Fragment {
         mListener = null;
     }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e("my", "onStop: -----------------------`");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("my", "onDestroy: -----------------------`");
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -130,6 +139,6 @@ public class ChooseTagFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Tag item);
+        void onTagSelect(Tag item);
     }
 }

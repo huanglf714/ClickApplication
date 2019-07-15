@@ -79,4 +79,14 @@ public class TagRepositoryImpl implements ITagRepository {
     public Tag queryTag() {
         return tagDAO.queryTag();
     }
+
+    @Override
+    public LiveData<Tag> queryTagId(int tagId) {
+        return tagDAO.queryTagId(tagId);
+    }
+
+//    @Override
+//    public LiveData<List<Tag>> queryAllHaveNumberTags() {
+//        return tagDAO.queryAllHaveNumberTags();
+//    }
 }

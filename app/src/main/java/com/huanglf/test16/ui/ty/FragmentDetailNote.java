@@ -1,17 +1,21 @@
 package com.huanglf.test16.ui.ty;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +23,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.huanglf.test16.R;
 import com.huanglf.test16.repository.database.Note;
+import com.huanglf.test16.repository.database.Tag;
 import com.huanglf.test16.repository.editText.ExtendEditText;
 import com.huanglf.test16.repository.editText.ExtendEditTextListener;
 import com.huanglf.test16.repository.editText.Rule;
+import com.huanglf.test16.ui.css.TagListViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,11 +52,14 @@ public class FragmentDetailNote extends Fragment {
     private ImageButton mIbLink;
     private ImageButton mIbBullet;
     private ImageButton mIbClear;
-    private ImageView tag;
+    public static ImageView tagImg;
     private ExtendEditText editText;
     private SaveViewModel saveViewModel;
-    private Note note;
+    private TagListViewModel tagListViewModel;
+    public static Note note;
     private Boolean isNew = true;
+    public static Dialog dialog;
+    private View dialogView;
 
     public FragmentDetailNote() {
         // Required empty public constructor
@@ -72,14 +82,15 @@ public class FragmentDetailNote extends Fragment {
             @Override
             public void onClick(View v) {
                 note = constructNote();
-                saveViewModel.saveNote(note,isNew);
+                saveViewModel.saveNote(note, isNew);
+                Toast.makeText(getContext(), "保存成功!", Toast.LENGTH_SHORT).show();
             }
         });
 
         /**
-         * set diaolog for select note tag
+         * set diaolog for select note tagImg
          */
-        tag.setOnClickListener(new View.OnClickListener() {
+        tagImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setDialog();
@@ -156,25 +167,30 @@ public class FragmentDetailNote extends Fragment {
         mIbLink = view.findViewById(R.id.ib_link);
         mIbStrikethrough = view.findViewById(R.id.ib_strikethrough);
         mIbUnderline = view.findViewById(R.id.ib_underline);
-        tag = view.findViewById(R.id.tag);
         editText = view.findViewById(R.id.extend_edit_text);
+        tagImg = view.findViewById(R.id.tag);
         saveViewModel = ViewModelProviders.of(this).get(SaveViewModel.class);
+        tagListViewModel = ViewModelProviders.of(this).get(TagListViewModel.class);
     }
 
-    private void initEditText(){
+    private void initEditText() {
         Bundle args = getArguments();
-         if(args != null){
-             note = (Note) args.getSerializable(ARG_DATA);
-             if (note != null) {
-                 Spanned spanned = Html.fromHtml(note.getContent());
-                 editText.setText(spanned);
-                 isNew = false;
-             }
-        }else {
-             note = new Note();
-         }
-
-
+        if (args != null) {
+            note = (Note) args.getSerializable(ARG_DATA);
+            if (note != null) {
+                Spanned spanned = Html.fromHtml(note.getContent());
+                editText.setText(spanned);
+                isNew = false;
+                tagListViewModel.selectTag(note.getTagId()).observe(this, new Observer<Tag>() {
+                    @Override
+                    public void onChanged(Tag tag) {
+                        tagImg.setImageResource(tag.getImage());
+                    }
+                });
+            }
+        } else {
+            note = new Note();
+        }
     }
 
     private void setupExtendEditText() {
@@ -247,28 +263,29 @@ public class FragmentDetailNote extends Fragment {
         editText.clear();
     }
 
-    private Note constructNote(){
+    private Note constructNote() {
         String title = saveViewModel.getTitle((editText.getText()).toString());
         String content = Html.toHtml(editText.getText());
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String date = df.format(new Date());
-        if(isNew){
+        if (isNew) {
             note.setCreateDate(date);
         }
         note.setTitle(title);
         note.setContent(content);
         note.setUpdateDate(date);
-        return  note;
+        return note;
     }
 
     private void setDialog() {
-        Dialog dialog = new Dialog(this.getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        LayoutInflater inflater = LayoutInflater.from(this.getContext());
-        View dialogView = inflater.inflate(R.layout.dialog_view, null);
+        if (dialog == null) {
+            dialog = new Dialog(this.getContext());
+        }
+        if (dialogView == null) {
+            dialogView = getLayoutInflater().inflate(R.layout.dialog_view, null);
+        }
         //放入自定义布局
         dialog.setContentView(dialogView);
-        //设置dialog宽高
         WindowManager.LayoutParams layoutManger = new WindowManager.LayoutParams();
         Window window = dialog.getWindow();
         layoutManger.copyFrom(window.getAttributes());

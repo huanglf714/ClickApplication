@@ -24,7 +24,8 @@
         android:theme="@style/QMUITheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:name">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -92,6 +92,8 @@ public class TagFragment extends Fragment {
             public void onChanged(List<Tag> list) {
                 Log.e("CSS", "onChanged: ------------------------------" + list.size());
                 tagList = list;
+                for (Tag tag : list)
+                    Log.e("mylog", tag.toString());
                 recyclerView.setAdapter(new MyTagRecyclerViewAdapter(tagList, mListener));
             }
         });

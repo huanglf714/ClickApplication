@@ -20,4 +20,8 @@ public interface ITagRepository {
     LiveData<List<Tag>> queryAllTag();
 
     Tag queryTag();
+
+    LiveData<Tag> queryTagId(int tagId);
+
+//    LiveData<List<Tag>> queryAllHaveNumberTags();
 }

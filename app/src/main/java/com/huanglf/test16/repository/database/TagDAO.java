@@ -29,4 +29,10 @@ public interface TagDAO {
 
     @Query("select * from tag where id = 1")
     Tag queryTag();
+
+    @Query("select * from tag where id = :tagId")
+    LiveData<Tag> queryTagId(int tagId);
+
+//    @Query("SELECT tag.id, count(*) as number FROM note join tag on note.tag_id = tag.id group by tag.id")
+//    LiveData<List<Tag>> queryAllHaveNumberTags();
 }
