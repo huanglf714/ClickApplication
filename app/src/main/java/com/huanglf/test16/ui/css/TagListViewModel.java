@@ -37,6 +37,10 @@ public class TagListViewModel extends ViewModel {
         tagRepository.insertTag(tag);
     }
 
+    public void insertNewTag(Tag tag) {
+        tagRepository.insertTag(tag);
+    }
+
     public void updateNewTag(int id, String name, int image, int currrentNumber) {
         Tag tag = new Tag();
         tag.setId(id);
@@ -48,5 +52,9 @@ public class TagListViewModel extends ViewModel {
 
     public void deleteTag(Tag tag) {
         tagRepository.deleteTag(tag);
+    }
+
+    public Tag queryTag() {
+        return tagRepository.queryTag();
     }
 }

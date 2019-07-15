@@ -1,5 +1,7 @@
 package com.huanglf.test16.repository.impl;
 
+import android.os.Message;
+
 import androidx.lifecycle.LiveData;
 
 import com.huanglf.test16.repository.ITagRepository;
@@ -7,6 +9,7 @@ import com.huanglf.test16.repository.database.AppDatabase;
 import com.huanglf.test16.repository.database.Tag;
 import com.huanglf.test16.repository.database.TagDAO;
 import com.huanglf.test16.util.AppExecutor;
+import com.huanglf.test16.util.MessageUtil;
 
 import java.util.List;
 
@@ -57,7 +60,12 @@ public class TagRepositoryImpl implements ITagRepository {
         executor.getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
-                tagDAO.updateTag(tag);
+                if(tag.getId() == 1) {
+                    MessageUtil.error("未标签不能被修改");
+                }
+                else{
+                    tagDAO.updateTag(tag);
+                }
             }
         });
     }
@@ -65,5 +73,10 @@ public class TagRepositoryImpl implements ITagRepository {
     @Override
     public LiveData<List<Tag>> queryAllTag() {
         return tagDAO.queryAllTags();
+    }
+
+    @Override
+    public Tag queryTag() {
+        return tagDAO.queryTag();
     }
 }

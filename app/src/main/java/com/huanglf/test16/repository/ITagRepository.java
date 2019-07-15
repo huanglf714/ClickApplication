@@ -18,4 +18,6 @@ public interface ITagRepository {
     void updateTag(Tag tag);
 
     LiveData<List<Tag>> queryAllTag();
+
+    Tag queryTag();
 }

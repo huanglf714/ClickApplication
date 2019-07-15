@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements
     private static View itemView;
     private static EditText editText;
     NoteRepositoryImpl noteRepository = null;
+    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,20 @@ public class MainActivity extends AppCompatActivity implements
                 noteRepository.insertNote(note);
             }
         });
+        thread = new Thread("Thread1") {
+            boolean exit = false;
+            public void run() {
+                while (!exit) {
+                    Tag tag1 = tagListViewModel.queryTag();
+                    if (tag1 == null) {
+                        Tag tag = new Tag(1, "未标签", 0, R.drawable.tag);
+                        tagListViewModel.insertNewTag(tag);
+                    }
+                    exit = true;
+                }
+            }
+        };
+        thread.start();
     }
 
     @Override
@@ -201,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements
                 int image = colorList[colorNum + 1];
                 tagListViewModel.updateNewTag(currentId, name, image, currentNumber);
                 dialog.dismiss();
-                Toast.makeText(getApplicationContext(), "点击了修改标签", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "修改标签成功", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.cancleAdd:
                 dialog.dismiss();

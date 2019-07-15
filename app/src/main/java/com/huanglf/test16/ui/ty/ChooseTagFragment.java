@@ -42,7 +42,6 @@ public class ChooseTagFragment extends Fragment {
     private int mColumnCount = 1;
     private ChooseTagFragment.OnListFragmentInteractionListener mListener;
     private TagListViewModel tagListViewModel;
-    private List<Tag> tagList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ItemTouchHelper itemTouchHelper;
 
@@ -96,20 +95,7 @@ public class ChooseTagFragment extends Fragment {
         tagListViewModel.getTagList().observe(this, new Observer<List<Tag>>() {
             @Override
             public void onChanged(List<Tag> list) {
-                tagList = list;
-                tagList.add(new Tag(1, "生活", 0, R.drawable.tag));
-                tagList.add(new Tag(2, "工作", 0, R.drawable.tag1));
-                tagList.add(new Tag(3, "学习", 0, R.drawable.tag2));
-                tagList.add(new Tag(4, "娱乐", 0, R.drawable.tag3));
-                tagList.add(new Tag(5, "购物", 0, R.drawable.tag4));
-                tagList.add(new Tag(6, "吃喝", 0, R.drawable.tag5));
-                tagList.add(new Tag(1, "生活", 0, R.drawable.tag));
-                tagList.add(new Tag(2, "工作", 0, R.drawable.tag1));
-                tagList.add(new Tag(3, "学习", 0, R.drawable.tag2));
-                tagList.add(new Tag(4, "娱乐", 0, R.drawable.tag3));
-                tagList.add(new Tag(5, "购物", 0, R.drawable.tag4));
-                tagList.add(new Tag(6, "吃喝", 0, R.drawable.tag5));
-                recyclerView.setAdapter(new TagRecyclerViewAdapter(tagList, mListener));
+                recyclerView.setAdapter(new TagRecyclerViewAdapter(list, mListener));
             }
         });
 

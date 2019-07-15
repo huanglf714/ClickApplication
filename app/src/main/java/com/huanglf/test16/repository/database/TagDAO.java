@@ -26,4 +26,7 @@ public interface TagDAO {
 
     @Query("select * from tag")
     LiveData<List<Tag>> queryAllTags();
+
+    @Query("select * from tag where id = 1")
+    Tag queryTag();
 }
